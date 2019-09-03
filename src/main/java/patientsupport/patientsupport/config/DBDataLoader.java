@@ -92,31 +92,31 @@ public class DBDataLoader implements ApplicationRunner {
 
     private void createZones() {
         Zone z1 = new Zone();
-        z1.setDescription("Centro");
+        z1.setDescription("Antioquia");
         z1.setCountryId(1);
         z1.setActive(true);
         z1.setCreatedBy("admin@admin.com");
         z1.setCreatedAt(new Date());
         Zone z2 = new Zone();
-        z2.setDescription("Norte");
+        z2.setDescription("Centro");
         z2.setCountryId(1);
         z2.setActive(true);
         z2.setCreatedBy("admin@admin.com");
         z2.setCreatedAt(new Date());
         Zone z3 = new Zone();
-        z3.setDescription("Oriente");
+        z3.setDescription("Costa");
         z3.setCountryId(1);
         z3.setActive(true);
         z3.setCreatedBy("admin@admin.com");
         z3.setCreatedAt(new Date());
         Zone z4 = new Zone();
-        z4.setDescription("Occidente");
+        z4.setDescription("Eje Cafetero");
         z4.setCountryId(1);
         z4.setActive(true);
         z4.setCreatedBy("admin@admin.com");
         z4.setCreatedAt(new Date());
         Zone z5 = new Zone();
-        z5.setDescription("Norte");
+        z5.setDescription("Occidente");
         z5.setCountryId(2);
         z5.setActive(true);
         z5.setCreatedBy("admin@admin.com");
