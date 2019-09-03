@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Support Patient - Event Types</title>
+
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/paper-dashboard.css?v=2.0.0}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}" />
+
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div th:replace="layout/sidebar :: sidebar"></div>
+
+        <div class="main-panel">
+
+            <div th:replace="layout/header :: header"></div>
+
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title d-inline"> <span th:text="#{label.create}"></span> </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="alert alert-danger" role="alert" th:if="${error != null}">
+                                        <span th:text="${error}">Error</span>
+                                    </div>
+                                    <form action="#" th:action="@{/therapies/create}" th:object="${therapy}" method="post">
+                                <div class="form-group col-md-8">
+                                    <label for="description" class="col-form-label"><span th:text="#{label.description}"></span></label>
+                                    <input th:field="*{description}" type="text" class="form-control" id="description">
+                                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label for="product" class="col-form-label"><span th:text="#{label.product}"></span></label>
+                                    <input th:field="*{product}" type="text" class="form-control" id="product">
+                                    <span th:if="${#fields.hasErrors('product')}" th:errors="*{product}" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <div class="custom-control custom-checkbox">
+                                        <input th:field="*{core}" type="checkbox" class="custom-control-input" id="core">
+                                        <label for="core" class="custom-control-label"><span th:text="#{label.core}"></span>
+                                        </label>
+                                    </div>
+                                    <span th:if="${#fields.hasErrors('core')}" th:errors="*{core}" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label for="indication" class="col-form-label"><span th:text="#{label.indication}"></span></label>
+                                    <textarea th:field = "*{indication}" class="form-control" rows="3" id="indication"> </textarea>
+                                    <span th:if="${#fields.hasErrors('indication')}" th:errors="*{indication}" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <a type="submit" class="btn btn-info" th:href="@{/therapies}">
+                                        <i class="fa fa-arrow-left"></i> <span th:text="#{label.back}"></span>
+                                    </a>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa fa-save"></i> <span th:text="#{label.new}"></span>
+                                    </button>
+                                </div>
+                        </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div th:replace="layout/footer :: footer"></div>
+
+      </div>
+
+    </div> <!-- main -->
+
+  </div> <!-- wrapper -->
+
+  <!--   Core JS Files   -->
+  <script th:src="@{/js/core/jquery.min.js}"></script>
+  <script th:src="@{/js/core/popper.min.js}"></script>
+  <script th:src="@{/js/core/bootstrap.min.js}"></script>
+  <script th:src="@{/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+  <!-- Chart JS -->
+  <script th:src="@{/js/plugins/chartjs.min.js}"></script>
+  <!--  Notifications Plugin    -->
+  <script th:src="@{/js/plugins/bootstrap-notify.js}"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script th:src="@{/js/paper-dashboard.min.js?v=2.0.0}" type="text/javascript"></script>
+</body>
+
+</html>

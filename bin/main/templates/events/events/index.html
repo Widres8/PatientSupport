@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Support Patient - Events</title>
+
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/paper-dashboard.css?v=2.0.0}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}" />
+
+  <!-- CSS Files DataTables -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.css" />
+
+  <!-- CSS Files DateTime Picker -->
+  <link rel="stylesheet" type="text/css"
+    th:href="@{/js/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css}" />
+
+  <!-- CSS Files fullCalendar -->
+  <link rel="stylesheet" type="text/css" th:href="@{/js/plugins/fullcalendar/fullcalendar.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/js/plugins/fullcalendar/fullcalendar.print.min.css}"
+    media="print" />
+
+</head>
+
+<body>
+  <div class="wrapper">
+
+    <div th:replace="layout/sidebar :: sidebar"></div>
+
+    <div class="main-panel">
+
+      <div th:replace="layout/header :: header"></div>
+
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title d-inline">
+                    <span th:text="#{label.events}"></span>
+                  </h4>
+                  <!-- <a class="btn btn-info btn-sm float-right" th:href="@{/events/create/}">
+                    <i class="fa fa-plus"> <span th:text="#{label.new}"></span></i>
+                  </a> -->
+                </div>
+                <div class="card-body">
+                  <div class="container">
+                    <div id="calender"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div th:replace="layout/footer :: footer"></div>
+
+      </div>
+
+    </div> <!-- main -->
+
+  </div>
+  <!-- wrapper -->
+
+  <div class="modal" tabindex="-1" role="dialog" id="createModal">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <span th:text="#{label.new}" id="isCreate"></span>
+            <span th:text="#{label.edit}" id="isEdit"></span>
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/events/create" method="post" id="createForm">
+          <div class="modal-body">
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group col-md-12">
+                  <label for="subject" class="col-form-label">
+                    <span th:text="#{label.eventtype}"></span>
+                  </label>
+                  <select class="form-control" id="eventtypeid" required>
+                    <option value=""><span th:text="#{label.selectoption}"></span></option>
+                    <option th:each="item : ${eventTypes}" th:value="${item.id}" th:text="${item.description}"></option>
+                  </select>
+                </div>
+                <div class="form-group col-md-12">
+                  <label for="color" class="col-form-label"><span th:text="#{label.color}"></span></label>
+                  <select class="form-control" id="color" required>
+                    <option value=""><span th:text="#{label.selectoption}"></span></option>
+                    <option th:each="item : ${colors}" th:value="${item.value}" th:text="${item.text}"></option>
+                  </select>
+                </div>
+                <div class="form-group col-md-12">
+                  <label for="subject" class="col-form-label"><span th:text="#{label.subject}"></span></label>
+                  <input name="subject" type="text" class="form-control" id="subject" required>
+                </div>
+                <div class="form-group col-md-12">
+                  <label for="startDate" class="col-form-label"><span th:text="#{label.startDate}"></span></label>
+                  <input size="16" type="text" value="" name="startDate" id="startDate"
+                    class="form-control form_datetime" readonly>
+                </div>
+
+              </div>
+              <div class="col-md-6">
+                <div class="form-group col-md-12">
+                  <label for="isFullDay" class="col-form-label"><span th:text="#{label.isFullDay}"></span></label>
+                  <input type="checkbox" name="isFullDay" id="isFullDay" checked class="check">
+                </div>
+                <div class="form-group col-md-12" id="divEndDate" style="display:none">
+                  <label for="endDate" class="col-form-label"><span th:text="#{label.endDate}"></span></label>
+                  <input size="16" type="text" value="" name="endDate" id="endDate" class="form-control form_datetime"
+                    readonly>
+                </div>
+
+                <div class="form-group col-md-12">
+                  <label for="observations" class="col-form-label"><span th:text="#{label.observations}"></span></label>
+                  <textarea name="observations" id="observations" cols="30" rows="10" class="form-control"
+                    required></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              <span th:text="#{label.cancel}"></span>
+            </button>
+            <button type="submit" class="btn btn-primary" id="createEvenClick">
+              <span th:text="#{label.new}"></span>
+            </button>
+            <button type="submit" class="btn btn-primary" id="editEvenClick">
+              <span th:text="#{label.edit}"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--   Core JS Files   -->
+  <script th:src="@{/js/core/jquery.min.js}"></script>
+  <script th:src="@{/js/core/popper.min.js}"></script>
+  <script th:src="@{/js/core/bootstrap.min.js}"></script>
+  <script th:src="@{/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+  <!-- Chart JS -->
+  <script th:src="@{/js/plugins/chartjs.min.js}"></script>
+  <!--  Notifications Plugin    -->
+  <script th:src="@{/js/plugins/bootstrap-notify.js}"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script th:src="@{/js/paper-dashboard.min.js?v=2.0.0}" type="text/javascript"></script>
+  <!-- Sweet Alert -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <!--  Full Calendar    -->
+  <script th:src="@{/js/plugins/fullcalendar/moment.min.js}"></script>
+  <script th:src="@{/js/plugins/fullcalendar/moment-with-locales.min.js}"></script>
+  <script th:src="@{/js/plugins/fullcalendar/fullcalendar.min.js}"></script>
+  <!--  DateTime Picker    -->
+  <script th:src="@{/js/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+  <!--  Custom JS   -->
+  <script th:src="@{/js/custom/delete-active-confirmation.js}"></script>
+  <script th:src="@{/js/custom/locale-i18n.js}"></script>
+  <script th:src="@{/js/custom/full-calendar-user.js}"></script>
+
+  <!-- DataTables -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+  <script type="text/javascript"
+    src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.js"></script>
+  <script th:src="@{/js/custom/datatables/default-data-table-wbtns.js}"></script>
+  <script>
+    $(document).ready(function () {
+      $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
+
+      //show and hide control end date
+      $('#isFullDay').change(function () {
+        if ($(this).is(':checked')) {
+          $('#divEndDate').hide();
+        }
+        else {
+          $('#divEndDate').show();
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

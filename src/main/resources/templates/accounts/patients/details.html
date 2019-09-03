@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Support Patient - Patients</title>
+
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/paper-dashboard.css?v=2.0.0}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}" />
+
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div th:replace="layout/sidebar :: sidebar"></div>
+
+        <div class="main-panel">
+
+            <div th:replace="layout/header :: header"></div>
+
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title d-inline">
+                                        <span th:text="${patient.fullName()}"></span>
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.department}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.getDepartment().getDescription()}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.city}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.getCity().getDescription()}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.names}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.fullName()}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.accountName}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.accountName}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.address}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.address}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.email}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.email}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.documenttype}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.getDocumentType().getAlias()}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.document}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.document}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.gender}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.gender}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.phone1}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.phone1}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.phone2}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.phone2}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.birthday}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.birthDay.toString().substring(0,10)}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.initials}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.initials}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.active}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.active}"></dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-md-3" th:text="#{label.createdBy}"></dt>
+                                        <dd class="col-md-9" th:text="${patient.createdBy}"></dd>
+                                    </dl>
+                                    <a type="button" class="btn btn-info" th:href="@{/patients}">
+                                        <i class="fa fa-arrow-left"></i> <span th:text="#{label.back}"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:replace="layout/footer :: footer"></div>
+
+            </div>
+
+        </div> <!-- main -->
+
+    </div> <!-- wrapper -->
+
+    <!--   Core JS Files   -->
+    <script th:src="@{/js/core/jquery.min.js}"></script>
+    <script th:src="@{/js/core/popper.min.js}"></script>
+    <script th:src="@{/js/core/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+    <!-- Chart JS -->
+    <script th:src="@{/js/plugins/chartjs.min.js}"></script>
+    <!--  Notifications Plugin    -->
+    <script th:src="@{/js/plugins/bootstrap-notify.js}"></script>
+    <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+    <script th:src="@{/js/paper-dashboard.min.js?v=2.0.0}" type="text/javascript"></script>
+    <!--  Custom JS   -->
+    <script th:src="@{/js/custom/drop-down-list.js}"></script>
+</body>
+
+</html>

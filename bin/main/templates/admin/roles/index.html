@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Support Patient - Home</title>
+
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/paper-dashboard.css?v=2.0.0}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}" />
+
+
+
+</head>
+
+<body>
+  <div class="wrapper">
+
+    <div th:replace="layout/sidebar :: sidebar"></div>
+
+    <div class="main-panel">
+
+      <div th:replace="layout/header :: header"></div>
+
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <div class="card-header header">
+                  <h4 class="card-title d-inline"> Roles </h4>
+                  <button class="btn btn-info btn-sm float-right">
+                    <i class="fa fa-plus"> Role</i>
+                  </button>
+                </div>
+                <div class="content table-responsive table-full-width">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Active?</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr th:each="item : ${Roles}">
+                        <td><span th:text="${item.id}"></span></td>
+                        <td><span th:text="${item.description}"></span></td>
+                        <td>
+                          <button th:if="${item.active == true}" type="button"
+                            th:value="${item.active}" id="inactivebutton"
+                            class="btn btn-danger btn-sm">
+                            <i class="fas fa-check-square"></i>
+                        </button>
+                        <button th:if="${item.active == false}" type="button"
+                            th:value="${item.active}" id="activebutton"
+                            class="btn btn-success btn-sm">
+                            <i class="far fa-check-square"></i>
+                          </button>
+                        </td>
+                        <td>
+                          <button class="btn btn-warning btn-sm">
+                            <i class="fa fa-edit"></i>
+                          </button>
+                          <button class="btn btn-primary btn-sm">
+                            <i class="fa fa-eye"></i>
+                          </button>
+                          <button class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div th:replace="layout/footer :: footer"></div>
+
+      </div>
+
+    </div> <!-- main -->
+
+  </div> <!-- wrapper -->
+
+  <!--   Core JS Files   -->
+  <script th:src="@{/js/core/jquery.min.js}"></script>
+  <script th:src="@{/js/core/popper.min.js}"></script>
+  <script th:src="@{/js/core/bootstrap.min.js}"></script>
+  <script th:src="@{/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+  <!-- Chart JS -->
+  <script th:src="@{/js/plugins/chartjs.min.js}"></script>
+  <!--  Notifications Plugin    -->
+  <script th:src="@{/js/plugins/bootstrap-notify.js}"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script th:src="@{/js/paper-dashboard.min.js?v=2.0.0}" type="text/javascript"></script>
+</body>
+
+</html>
