@@ -141,11 +141,13 @@ public class PhysiciansController {
             return view;
         }
         try {
-            
+            String symbol = ", ";
+            String fullName = itemToEdit.getFirstName() + symbol + itemToEdit.getLastName();
+            itemToEdit.setAccountName(fullName);
             itemToEdit.setLastModifiedBy(userService.getAuthUser().getEmail());
             itemToEdit.setLastModifiedAt(new Date());
             _repository.save(itemToEdit);
-            view.setViewName("redirect:/Physicians");
+            view.setViewName("redirect:/physicians");
             return view;
 
         } catch (DataAccessException ex) {
