@@ -16,8 +16,8 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @Configuration
 public class Internationalization implements WebMvcConfigurer {
 
-   //  final Locale defaultLocale = new Locale("es");
-    final Locale defaultLocale = new Locale("en");
+   final Locale defaultLocale = new Locale("es");
+   // final Locale defaultLocale = new Locale("en");
 
    // i18n for controller and views
    @Bean

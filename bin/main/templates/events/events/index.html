@@ -33,6 +33,7 @@
 </head>
 
 <body>
+  <div th:replace="layout/loader :: loader"></div>
   <div class="wrapper">
 
     <div th:replace="layout/sidebar :: sidebar"></div>
@@ -196,6 +197,16 @@
         }
       });
     });
+  </script>
+  <script>
+    $(document).ready(function () {
+      loader();
+    });
+    /*------------------ Preloder --------------------*/
+    function loader() {
+      $(".loader").fadeOut();
+      $("#preloder").delay(400).fadeOut("slow");
+    }
   </script>
 </body>
 

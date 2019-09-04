@@ -15,7 +15,7 @@ import patientsupport.patientsupport.models.parameters.Audit;
 import patientsupport.patientsupport.models.parameters.HealthOperatorType;
 
 @Entity
-@Table(name = "HealthOperatorAccounts")
+@Table(name = "HealthOperatorAccounts", uniqueConstraints = @UniqueConstraint(columnNames = { "description" }))
 public class HealthOperatorAccount extends Audit<String> {
 
     @Id

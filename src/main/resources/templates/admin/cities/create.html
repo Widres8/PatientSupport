@@ -42,10 +42,12 @@
                                     <div class="alert alert-danger" role="alert" th:if="${error != null}">
                                         <span th:text="${error}">Error</span>
                                     </div>
-                                    <form action="#" th:action="@{/cities/create/{departmentId}(departmentId=${city.getDepartmentId()})}" th:object="${city}"
-                                        method="post">
+                                    <form action="#"
+                                        th:action="@{/cities/create/{departmentId}(departmentId=${city.getDepartmentId()})}"
+                                        th:object="${city}" method="post">
                                         <div class="form-group col-md-8">
-                                            <label for="description" class="col-form-label"><span th:text="#{label.description}"></span></label>
+                                            <label for="description" class="col-form-label"><span
+                                                    th:text="#{label.description}"></span></label>
                                             <input th:field="*{description}" type="text" class="form-control"
                                                 id="description">
                                             <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>

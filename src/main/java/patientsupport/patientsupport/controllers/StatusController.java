@@ -1,6 +1,7 @@
 package patientsupport.patientsupport.controllers;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -12,11 +13,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import patientsupport.patientsupport.helpers.Translator;
 import patientsupport.patientsupport.models.parameters.Status;
+import patientsupport.patientsupport.models.parameters.StatusReason;
+import patientsupport.patientsupport.repository.StatusReasonRepository;
 import patientsupport.patientsupport.repository.StatusRepository;
 import patientsupport.patientsupport.services.UserService;
 
@@ -29,6 +33,7 @@ public class StatusController {
 
     private String pathView = "admin/status";
     private final StatusRepository _repository;
+    private StatusReasonRepository statusReasonRepository;
     private UserService userService;
 
     /**
@@ -39,8 +44,10 @@ public class StatusController {
     @Autowired
     public StatusController (
         StatusRepository _repository, 
+        StatusReasonRepository statusReasonRepository, 
         UserService userService){
         this._repository = _repository;
+        this.statusReasonRepository = statusReasonRepository;
         this.userService = userService;
     }
 
@@ -180,6 +187,21 @@ public class StatusController {
             return "{\"Status\":\"400\",\"Error\":\"Error al actualizar el registro\"}";
         }
         
+    }
+
+    @RequestMapping(value = "/getStatusReasonByStatusId", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody List<StatusReason> getStatusReasonByStatusId(@RequestParam Integer statusId) {
+		try {
+            List<StatusReason> s = getStatusReason(statusId);
+			return getStatusReason(statusId);
+
+		} catch (Exception ex) {
+			return null;
+		}
+    }
+    
+    private List<StatusReason> getStatusReason(Integer statusId) {
+        return statusReasonRepository.findByStatusId(statusId);
     }
 
     /**
