@@ -3,6 +3,7 @@ package patientsupport.patientsupport.models.parameters;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,6 +29,7 @@ public class Department extends Audit<String> {
     @Length(max = 100)
     private String description;
 
+    @Min(value = 1, message = "{label.required}")
     private int zoneId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

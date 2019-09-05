@@ -3,6 +3,7 @@ package patientsupport.patientsupport.models.cases;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,6 +34,7 @@ public class Lab extends Audit<String>{
 
     private Date resultDate;
 
+    @Min(value = 1, message = "{label.required}")
     private int labTypeId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
