@@ -192,7 +192,6 @@ public class StatusController {
     @RequestMapping(value = "/getStatusReasonByStatusId", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody List<StatusReason> getStatusReasonByStatusId(@RequestParam Integer statusId) {
 		try {
-            List<StatusReason> s = getStatusReason(statusId);
 			return getStatusReason(statusId);
 
 		} catch (Exception ex) {

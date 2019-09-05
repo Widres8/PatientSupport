@@ -84,9 +84,9 @@ public class PhysiciansController {
         try {
             String symbol = ", ";
             String fullName = itemTocreate.getFirstName() + symbol + itemTocreate.getLastName();
+            itemTocreate.setAccountName(fullName);
             itemTocreate.setCreatedAt(new Date());
             itemTocreate.setCreatedBy(userService.getAuthUser().getEmail());
-            itemTocreate.setAccountName(fullName);
             itemTocreate.setActive(true);
             _repository.save(itemTocreate);
             view.setViewName("redirect:/physicians");

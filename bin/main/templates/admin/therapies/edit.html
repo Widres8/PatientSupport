@@ -17,11 +17,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/paper-dashboard.css?v=2.0.0}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}" />
 
-
-
 </head>
 
 <body>
+        <div th:replace="layout/loader :: loader"></div>
     <div class="wrapper">
 
         <div th:replace="layout/sidebar :: sidebar"></div>
@@ -68,7 +67,7 @@
                                         </div>
                                         <div class="form-group col-md-8">
                                             <label for="indication" class="col-form-label"><span th:text="#{label.indication}"></span></label>
-                                            <textarea th:field = "*{indication}" class="form-control" rows="3" id="indication"> </textarea>
+                                            <textarea th:field="*{indication}" class="form-control" rows="5" cols="10" id="indication"> </textarea>
                                             <span th:if="${#fields.hasErrors('indication')}" th:errors="*{indication}" class="text-danger"></span>
                                         </div>
                                 <div class="col-md-6">
@@ -105,6 +104,18 @@
   <script th:src="@{/js/plugins/bootstrap-notify.js}"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script th:src="@{/js/paper-dashboard.min.js?v=2.0.0}" type="text/javascript"></script>
+      <!-- Sweet Alert -->
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script>
+        $(document).ready(function () {
+            loader();
+        });
+        /*------------------ Preloder --------------------*/
+        function loader() {
+            $(".loader").fadeOut();
+            $("#preloder").delay(400).fadeOut("slow");
+        }
+    </script>
 </body>
 
 </html>

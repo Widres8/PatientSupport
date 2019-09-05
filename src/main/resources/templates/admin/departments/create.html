@@ -19,6 +19,7 @@
 </head>
 
 <body>
+    <div th:replace="layout/loader :: loader"></div>
   <div class="wrapper">
     <div th:replace="layout/sidebar :: sidebar"></div>
 
@@ -122,6 +123,17 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
      <!--  Custom JS   -->
     <script th:src="@{/js/custom/drop-down-list.js}"></script>
-
+  <!-- Sweet Alert -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    $(document).ready(function () {
+        loader();
+    });
+    /*------------------ Preloder --------------------*/
+    function loader() {
+        $(".loader").fadeOut();
+        $("#preloder").delay(400).fadeOut("slow");
+    }
+</script>
   </body>
 </html>
