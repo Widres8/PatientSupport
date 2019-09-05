@@ -65,11 +65,12 @@
                           <td th:text="${item.approvaldate}"></td>
                           <td th:text="${item.approvalexpirationdate}"></td>
                           <td>
-                            <a class="btn btn-warning btn-sm" th:href="@{/approvals/edit/{id}(id=${item.id})}">
+                            <a class="btn btn-warning btn-sm" th:href="@{/approvals/edit/{id}(id=${item.id})}"
+                              data-toggle="tooltip" data-placement="top" th:attr="title=#{label.edit}">
                               <i class="fa fa-edit"></i>
                             </a>
-                            <button class="btn btn-danger btn-sm swalDelete" th:attr="data-id=${item.id}"
-                              data-url="/approvals/delete/">
+                            <button class="btn btn-danger btn-sm swalDelete" th:attr="data-id=${item.id}, title=#{label.delete}"
+                              data-url="/approvals/delete/" data-toggle="tooltip" data-placement="top">
                               <i class="fa fa-trash"></i>
                             </button>
                           </td>
@@ -116,6 +117,7 @@
   <script>
     $(document).ready(function () {
       loader();
+      $('[data-toggle="tooltip"]').tooltip();
     });
     /*------------------ Preloder --------------------*/
     function loader() {

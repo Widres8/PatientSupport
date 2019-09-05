@@ -90,7 +90,7 @@ $(document).ready(function() {
                             swal("Ok", data.Message, "success");
                             setInterval('location.reload()', 1000);
                         } else {
-                            swal("¡Error!", data.Message, "error");
+                            swal("¡Error!", data.Error, "error");
                         }
                     }
                 }); //Ajax
