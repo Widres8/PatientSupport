@@ -17,11 +17,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/paper-dashboard.css?v=2.0.0}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}" />
 
-
-
 </head>
 
 <body>
+        <div th:replace="layout/loader :: loader"></div>
     <div class="wrapper">
 
         <div th:replace="layout/sidebar :: sidebar"></div>
@@ -45,6 +44,18 @@
                                     <form action="#" th:action="@{/physicians/create}" th:object="${physician}"
                                         method="post">
                                         <div class="form-group col-md-8">
+                                                <label for="specialistTypeId" class="col-form-label">
+                                                    <span th:text="#{label.specialisttype}"></span>
+                                                </label>
+                                                <select class="form-control" th:field="*{specialistTypeId}">
+                                                    <option value="0"><span th:text="#{label.selectoption}"></span></option>
+                                                    <option th:each="specialisttype : ${specialistTypes}"
+                                                        th:value="${specialisttype.id}"
+                                                        th:text="${specialisttype.description}"></option>
+                                                </select>
+                                                <span th:if="${#fields.hasErrors('specialistTypeId')}" th:errors="*{specialistTypeId}" class="text-danger"></span>
+                                            </div>
+                                        <div class="form-group col-md-8">
                                             <label for="firstName" class="col-form-label"><span
                                                     th:text="#{label.firstName}"></span></label>
                                             <input th:field="*{firstName}" type="text" class="form-control"
@@ -60,26 +71,10 @@
                                         <div class="form-group col-md-8">
                                             <label for="phone" class="col-form-label"><span
                                                     th:text="#{label.phone}"></span></label>
-                                            <input th:field="*{phone}" type="text" class="form-control" id="phone">
+                                            <input th:field="*{phone}" type="text" class="form-control" id="phone" pattern="^[0-9]{7,10}" title="Números. Tamaño mínimo: 7. Tamaño máximo: 10">
                                             <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger"></span>
                                         </div>
-                                        <!-- <div class="form-group col-md-8">
-                                            <label for="accountName" class="col-form-label"><span
-                                                    th:text="#{label.accountName}"></span></label>
-                                            <input th:field="*{accountName}" type="text" class="form-control" id="accountName">
-                                            <span th:if="${#fields.hasErrors('accountName')}" th:errors="*{accountName}" class="text-danger"></span>
-                                        </div> -->
-                                        <div class="form-group col-md-8">
-                                            <label for="specialistTypeId" class="col-form-label">
-                                                <span th:text="#{label.specialisttype}"></span>
-                                            </label>
-                                            <select class="form-control" th:field="*{specialistTypeId}">
-                                                <option value="0"><span th:text="#{label.selectoption}"></span></option>
-                                                <option th:each="specialisttype : ${specialistTypes}"
-                                                    th:value="${specialisttype.id}"
-                                                    th:text="${specialisttype.description}"></option>
-                                            </select>
-                                        </div>
+                                        
                                         <div class="col-md-6">
                                             <a type="submit" class="btn btn-info" th:href="@{/physicians}">
                                                 <i class="fa fa-arrow-left"></i> <span th:text="#{label.back}"></span>
@@ -114,6 +109,19 @@
     <script th:src="@{/js/plugins/bootstrap-notify.js}"></script>
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script th:src="@{/js/paper-dashboard.min.js?v=2.0.0}" type="text/javascript"></script>
+    <script th:src="@{/js/plugins/maskedinput/jquery.maskedinput.js}"></script>
+     <!-- Sweet Alert -->
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+     <script>
+       $(document).ready(function () {
+           loader();
+       });
+       /*------------------ Preloder --------------------*/
+       function loader() {
+           $(".loader").fadeOut();
+           $("#preloder").delay(400).fadeOut("slow");
+       }
+   </script>
 </body>
 
 </html>

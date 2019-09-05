@@ -87,6 +87,7 @@ public class Patient extends Audit<String> {
 
     private boolean active;
 
+    @Min(value = 1, message = "{label.required}")
     private int departmentId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -95,6 +96,7 @@ public class Patient extends Audit<String> {
     @JsonIgnore
     private Department department;
 
+    @Min(value = 1, message = "{label.required}")
     private int cityId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -103,6 +105,7 @@ public class Patient extends Audit<String> {
     @JsonIgnore
     private City city;
 
+    @Min(value = 1, message = "{label.required}")
     private int documentTypeId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

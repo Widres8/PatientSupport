@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Support Patient - Approvals</title>
+
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/paper-dashboard.css?v=2.0.0}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/js/plugins/wizard-form/paper-bootstrap-wizard.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/js/plugins/wizard-form/themify-icons.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/js/plugins/select2/select2.min.css}" />
+    <style>
+        .select2-container{
+            width: 100% !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div th:replace="layout/sidebar :: sidebar"></div>
+
+        <div class="main-panel">
+
+            <div th:replace="layout/header :: header"></div>
+
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <!--      Wizard container        -->
+                            <div class="card wizard-card" data-color="orange" id="wizard">
+                                <form action="#" th:action="@{/cases/create}" th:object="${case}" method="post">
+                                    <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
+                                    <div class="wizard-header text-center">
+                                        <h3 class="wizard-title" th:text="#{label.case}"></h3>
+                                    </div>
+                                    <div class="wizard-navigation">
+                                        <div class="progress progress-with-circle">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="1"
+                                                aria-valuemin="1" aria-valuemax="3" style="width: 21%;"></div>
+                                        </div>
+                                        <ul>
+                                            <li>
+                                                <a href="#about" data-toggle="tab">
+                                                    <div class="icon-circle">
+                                                        <i class="ti-support"></i>
+                                                    </div>
+                                                    <span th:text="#{label.basic}"></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#account" data-toggle="tab">
+                                                    <div class="icon-circle">
+                                                        <i class="ti-settings"></i>
+                                                    </div>
+                                                    <span th:text="#{label.advance}"></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#address" data-toggle="tab">
+                                                    <div class="icon-circle">
+                                                        <i class="ti-user"></i>
+                                                    </div>
+                                                    <span th:text="#{label.patient}"></span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane" id="about">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="treatmentDepartmentId" class="col-form-label">
+                                                            <span th:text="#{label.department}"></span>
+                                                        </label>
+                                                        <select class="form-control"
+                                                            th:field="*{treatmentDepartmentId}" th:attr="data-msg-min=#{label.required}">
+                                                            <option value="0"><span
+                                                                    th:text="#{label.selectoption}"></span>
+                                                            </option>
+                                                            <option th:each="department : ${departments}"
+                                                                th:value="${department.id}"
+                                                                th:text="${department.description}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="treatmentCityId" class="col-form-label">
+                                                            <span th:text="#{label.city}"></span>
+                                                        </label>
+                                                        <select class="form-control" th:field="*{treatmentCityId}" th:attr="data-msg-min=#{label.required}">
+                                                            <option value="0"><span
+                                                                    th:text="#{label.selectoption}"></span>
+                                                            </option>
+                                                            <option th:each="city : ${cities}" th:value="${city.id}"
+                                                                th:text="${city.description}"></option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="physicianId" class="col-form-label">
+                                                            <span th:text="#{label.physician}"></span>
+                                                        </label>
+                                                        <select class="form-control" th:field="*{physicianId}" th:attr="data-msg-min=#{label.required}">
+                                                            <option value="0"><span
+                                                                    th:text="#{label.selectoption}"></span>
+                                                            </option>
+                                                            <option th:each="physician : ${physicians}"
+                                                                th:value="${physician.id}"
+                                                                th:text="${physician.accountName}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="institutionId" class="col-form-label">
+                                                            <span th:text="#{label.institution}"></span>
+                                                        </label>
+                                                        <select class="form-control" th:field="*{institutionId}" th:attr="data-msg-min=#{label.required}">
+                                                            <option value="0"><span
+                                                                    th:text="#{label.selectoption}"></span>
+                                                            </option>
+                                                            <option th:each="institution : ${healtOperatorAccounts}"
+                                                                th:value="${institution.id}"
+                                                                th:text="${institution.description}"></option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="logisticOperatorId" class="col-form-label">
+                                                            <span th:text="#{label.logisticOperator}"></span>
+                                                        </label>
+                                                        <select class="form-control" th:field="*{logisticOperatorId}" th:attr="data-msg-min=#{label.required}">
+                                                            <option value="0"><span
+                                                                    th:text="#{label.selectoption}"></span>
+                                                            </option>
+                                                            <option
+                                                                th:each="logisticOperator : ${healtOperatorAccounts}"
+                                                                th:value="${logisticOperator.id}"
+                                                                th:text="${logisticOperator.description}"></option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="healthOperatorAccountId" class="col-form-label">
+                                                            <span th:text="#{label.healthoperatoraccount}"></span>
+                                                        </label>
+                                                        <select class="form-control"
+                                                            th:field="*{healthOperatorAccountId}" th:attr="data-msg-min=#{label.required}">
+                                                            <option value="0"><span
+                                                                    th:text="#{label.selectoption}"></span>
+                                                            </option>
+                                                            <option
+                                                                th:each="healthOperatorAccount : ${healtOperatorAccounts}"
+                                                                th:value="${healthOperatorAccount.id}"
+                                                                th:text="${healthOperatorAccount.description}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="account">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="theraphyId" class="col-form-label">
+                                                            <span th:text="#{label.theraphy}"></span>
+                                                        </label>
+                                                        <select class="form-control" th:field="*{theraphyId}" th:attr="data-msg-min=#{label.required}">
+                                                            <option value="0"><span th:text="#{label.selectoption}"></span>
+                                                            </option>
+                                                            <option th:each="theraphy : ${therapies}"
+                                                                th:value="${theraphy.id}" th:text="${theraphy.description}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="statusId" class="col-form-label">
+                                                            <span th:text="#{label.status}"></span>
+                                                        </label>
+                                                        <select class="form-control" th:field="*{statusId}" th:attr="data-msg-min=#{label.required}">
+                                                            <option value="0"><span th:text="#{label.selectoption}"></span>
+                                                            </option>
+                                                            <option th:each="status : ${status}" th:value="${status.id}"
+                                                                th:text="${status.description}"></option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="statusReasonId" class="col-form-label">
+                                                            <span th:text="#{label.statusreason}"></span>
+                                                        </label>
+                                                        <select class="form-control" th:field="*{statusReasonId}" th:attr="data-msg-min=#{label.required}">
+                                                            <option value="0"><span th:text="#{label.selectoption}"></span>
+                                                            </option>
+                                                            <option th:each="statusReason : ${statusReasons}"
+                                                                th:value="${statusReason.id}"
+                                                                th:text="${statusReason.description}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="stageId" class="col-form-label">
+                                                            <span th:text="#{label.stage}"></span>
+                                                        </label>
+                                                        <select class="form-control" th:field="*{stageId}" th:attr="data-msg-min=#{label.required}">
+                                                            <option value="0"><span th:text="#{label.selectoption}"></span>
+                                                            </option>
+                                                            <option th:each="stage : ${stages}" th:value="${stage.id}"
+                                                                th:text="${stage.description}"></option>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div class="form-group col-md-12">
+                                                        <label for="insuranceTypeId" class="col-form-label">
+                                                            <span th:text="#{label.insurancetype}"></span>
+                                                        </label>
+                                                        <select class="form-control" th:field="*{insuranceTypeId}" th:attr="data-msg-min=#{label.required}">
+                                                            <option value="0"><span th:text="#{label.selectoption}"></span>
+                                                            </option>
+                                                            <option th:each="insuranceType : ${insuranceTypes}"
+                                                                th:value="${insuranceType.id}"
+                                                                th:text="${insuranceType.description}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="address">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="patientId" class="col-form-label">
+                                                            <span th:text="#{label.patient}"></span>
+                                                        </label>
+                                                        <select class="form-control" th:field="*{patientId}" th:attr="data-msg-min=#{label.required}">
+                                                            <option value="0"><span th:text="#{label.selectoption}"></span>
+                                                            </option>
+                                                            <option th:each="patient : ${patients}" th:value="${patient.id}"
+                                                                th:text="${patient.fullName() + '-' + patient.document}"></option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="fieldNurse" class="col-form-label">
+                                                            <span th:text="#{label.fieldNurse}"></span>
+                                                        </label>
+                                                        <select class="form-control" th:field="*{fieldNurse}" th:attr="data-msg-min=#{label.required}">
+                                                            <option value="0"><span th:text="#{label.selectoption}"></span>
+                                                            </option>
+                                                            <option th:each="user : ${users}" th:value="${user.id}"
+                                                                th:text="${user.fullName() + '-' + user.email}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="therapyStartDate" class="col-form-label"><span th:text="#{label.therapyStartDate}"></span></label>
+                                                        <input th:field="*{therapyStartDate}" type="date" class="form-control" id="therapyStartDate">
+                                                        <span th:if="${#fields.hasErrors('therapyStartDate')}" th:errors="*{therapyStartDate}" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="therapyEndDate" class="col-form-label"><span th:text="#{label.therapyEndDate}"></span></label>
+                                                        <input th:field="*{therapyEndDate}" type="date" class="form-control" id="therapyEndDate">
+                                                        <span th:if="${#fields.hasErrors('therapyEndDate')}" th:errors="*{therapyEndDate}" class="text-danger"></span>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wizard-footer">
+                                        <div class="pull-right">
+                                            <input type='button' class='btn btn-next btn-fill btn-warning btn-wd'
+                                                name='next' value='Next' />
+                                            <!-- <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd'
+                                                name='finish' value='Finish' /> -->
+                                            <button type="submit"  class='btn btn-finish btn-fill btn-warning btn-wd' name='finish'>
+                                                <i class="fa fa-save"></i> <span th:text="#{label.new}"></span>
+                                            </button>
+                                        </div>
+
+                                        <div class="pull-left">
+                                            <button type="button" class="btn btn-previous btn-default btn-wd" name='previous'>
+                                                <i class="fa fa-arrow-left"></i>
+                                                <span th:text="#{label.back}"></span>
+                                            </button>
+                                            <a type="button" class="btn btn-default btn-wd" th:href="@{/cases}">
+                                                <span th:text="#{label.cases}"></span>
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- wizard container -->
+                        </div>
+                    </div>
+                </div>
+
+                <div th:replace="layout/footer :: footer"></div>
+
+            </div>
+
+        </div> <!-- main -->
+
+    </div> <!-- wrapper -->
+
+    <!--   Core JS Files   -->
+    <script th:src="@{/js/core/jquery.min.js}"></script>
+    <script th:src="@{/js/core/popper.min.js}"></script>
+    <script th:src="@{/js/core/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+    <!-- Chart JS -->
+    <script th:src="@{/js/plugins/chartjs.min.js}"></script>
+    <!--  Notifications Plugin    -->
+    <script th:src="@{/js/plugins/bootstrap-notify.js}"></script>
+    <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+    <script th:src="@{/js/paper-dashboard.min.js?v=2.0.0}" type="text/javascript"></script>
+    <!-- Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!--  Wizard JS   -->
+    <script th:src="@{/js/plugins/wizard-form/jquery.validate.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/plugins/wizard-form/jquery.bootstrap.wizard.js}" type="text/javascript"></script>
+    <script th:src="@{/js/plugins/wizard-form/paper-bootstrap-wizard.js}"></script>
+    <!--  Custom JS   -->
+    <script th:src="@{/js/custom/drop-down-list.js}"></script>
+    <script th:src="@{/js/plugins/select2/select2.min.js}"></script>
+    <script th:src="@{/js/plugins/maskedinput/jquery.maskedinput.js}"></script>
+    <script>
+        $(document).ready(function () {
+
+            // $('#BirthDay').datetimepicker({ format: 'YYYY/MM/DD' });
+            // $('#BirthDay').mask('9999/99/99');
+            // $("#Phone1").mask("999 999-9999");
+            // $("#Phone2").mask("(9) 999-9999");
+            $('#treatmentDepartmentId').select2();
+            $('#treatmentCityId').select2();
+            $('#physicianId').select2();
+            $('#institutionId').select2();
+            $('#logisticOperatorId').select2();
+            $('#healthOperatorAccountId').select2();
+            $('#theraphyId').select2();
+            $('#statusId').select2();
+            $('#statusReasonId').select2();
+            $('#stageId').select2();
+            $('#insuranceTypeId').select2();
+            $('#patientId').select2();
+            $('#fieldNurse').select2();
+        })
+    </script>
+</body>
+
+</html>

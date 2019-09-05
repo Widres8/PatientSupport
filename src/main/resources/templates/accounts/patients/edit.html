@@ -17,11 +17,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/paper-dashboard.css?v=2.0.0}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}" />
 
-
-
 </head>
 
 <body>
+        <div th:replace="layout/loader :: loader"></div>
     <div class="wrapper">
 
         <div th:replace="layout/sidebar :: sidebar"></div>
@@ -52,6 +51,7 @@
                                         <input th:field="*{active}" type="hidden" class="form-control" id="active">
                                         <input th:field="*{id}" type="hidden" class="form-control" id="id">
                                         <input th:field="*{initials}" type="hidden" class="form-control" id="id">
+                                        <input th:field="*{accountName}" th:value="*{accountName}" type="hidden" class="form-control" id="accountName">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group col-md-12">
@@ -92,11 +92,6 @@
                                                 <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></span>
                                             </div>
                                             <div class="form-group col-md-12">
-                                                <label for="accountName" class="col-form-label"><span th:text="#{label.accountName}"></span></label>
-                                                <input th:field="*{accountName}" type="text" class="form-control" id="accountName">
-                                                <span th:if="${#fields.hasErrors('accountName')}" th:errors="*{accountName}" class="text-danger"></span>
-                                            </div>
-                                            <div class="form-group col-md-12">
                                                 <label for="address" class="col-form-label"><span th:text="#{label.address}"></span></label>
                                                 <input th:field="*{address}" type="text" class="form-control" id="address">
                                                 <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
@@ -105,7 +100,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group col-md-12">
                                                     <label for="email" class="col-form-label"><span th:text="#{label.email}"></span></label>
-                                                    <input th:field="*{email}" type="email" class="form-control" id="email">
+                                                    <input th:field="*{email}" type="email" class="form-control" id="email" required>
                                                     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group col-md-12">
@@ -184,6 +179,22 @@
     <script th:src="@{/js/plugins/bootstrap-notify.js}"></script>
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script th:src="@{/js/paper-dashboard.min.js?v=2.0.0}" type="text/javascript"></script>
+    <script th:src="@{/js/plugins/maskedinput/jquery.maskedinput.js}"></script>
+     <!-- Sweet Alert -->
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+     <script>
+       $(document).ready(function () {
+           loader();
+           $("#phone1").mask("999 999 9999");
+            $("#phone2").mask("(9) 999 9999");
+            $('#email').inputmask('Regex', { 
+                regex: "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}+\.$"
+            });
+       });
+       /*------------------ Preloder --------------------*/
+       function loader() {
+           $(".loader").fadeOut();
+           $("#preloder").delay(400).fadeOut("slow");
+       }
+   </script>
 </body>
-
-</!-->

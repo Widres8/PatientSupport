@@ -56,6 +56,10 @@ public class User extends Audit<String> {
           name = "role_id", referencedColumnName = "id")) 
     private Collection<Role> roles;
 
+    public String fullName() {
+        return firstName + ' '  + lastName;
+    }
+
     public int getId() {
         return id;
     }

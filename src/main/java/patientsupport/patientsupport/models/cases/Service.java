@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,6 +43,7 @@ public class Service extends Audit<String> {
     @Length(max = 50)
     private String Reason;
 
+	@Min(value = 1, message = "{label.required}")
     private int serviceTypeId;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -50,7 +52,7 @@ public class Service extends Audit<String> {
     @JsonIgnore
     private ServiceType serviceType;
 	
-	
+	@Min(value = 1, message = "{label.required}")
     private int CaseId;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

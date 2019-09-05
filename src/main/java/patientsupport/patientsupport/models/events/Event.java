@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -49,6 +50,7 @@ public class Event extends Audit<String> {
     @Length(max = 255)
     private String observations;
 
+    @Min(value = 1, message = "{label.required}")
     private int eventTypeId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

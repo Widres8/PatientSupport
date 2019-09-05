@@ -22,6 +22,7 @@ import patientsupport.patientsupport.models.accounts.Patient;
 import patientsupport.patientsupport.models.accounts.Physician;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 /**
  * Case
@@ -49,6 +50,7 @@ public class Case extends Audit<String> {
 
     private int fieldNurse;
 
+    @Min(value = 1, message = "{label.required}")
     private int insuranceTypeId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -57,6 +59,7 @@ public class Case extends Audit<String> {
     @JsonIgnore
     private InsuranceType insuranceType;
 
+    @Min(value = 1, message = "{label.required}")
     private int healthOperatorAccountId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -65,6 +68,7 @@ public class Case extends Audit<String> {
     @JsonIgnore
     private HealthOperatorAccount healthOperatorAccount;
 
+    @Min(value = 1, message = "{label.required}")
     private int logisticOperatorId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -73,6 +77,7 @@ public class Case extends Audit<String> {
     @JsonIgnore
     private HealthOperatorAccount logisticOperator;
 
+    @Min(value = 1, message = "{label.required}")
     private int institutionId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -81,6 +86,7 @@ public class Case extends Audit<String> {
     @JsonIgnore
     private HealthOperatorAccount institution;
 
+    @Min(value = 1, message = "{label.required}")
     private int patientId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -89,6 +95,7 @@ public class Case extends Audit<String> {
     @JsonIgnore
     private Patient patient;
 
+    @Min(value = 1, message = "{label.required}")
     private int physicianId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -97,6 +104,7 @@ public class Case extends Audit<String> {
     @JsonIgnore
     private Physician physician;
 
+    @Min(value = 1, message = "{label.required}")
     private int statusReasonId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -105,6 +113,7 @@ public class Case extends Audit<String> {
     @JsonIgnore
     private StatusReason statusReason;
 
+    @Min(value = 1, message = "{label.required}")
     private int stageId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -113,6 +122,7 @@ public class Case extends Audit<String> {
     @JsonIgnore
     private Stage stage;
 
+    @Min(value = 1, message = "{label.required}")
     private int statusId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -121,6 +131,7 @@ public class Case extends Audit<String> {
     @JsonIgnore
     private Status status;
 
+    @Min(value = 1, message = "{label.required}")
     private int theraphyId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -129,6 +140,7 @@ public class Case extends Audit<String> {
     @JsonIgnore
     private Therapy theraphy;
 
+    @Min(value = 1, message = "{label.required}")
     private int treatmentDepartmentId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -137,6 +149,7 @@ public class Case extends Audit<String> {
     @JsonIgnore
     private Department treatmentDepartment;
 
+    @Min(value = 1, message = "{label.required}")
     private int treatmentCityId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

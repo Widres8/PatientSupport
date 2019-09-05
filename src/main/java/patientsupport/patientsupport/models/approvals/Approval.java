@@ -3,6 +3,7 @@ package patientsupport.patientsupport.models.approvals;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,6 +43,7 @@ public class Approval extends Audit<String> {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date approvalExpirationDate;
 
+    @Min(value = 1, message = "{label.required}")
     private int caseId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

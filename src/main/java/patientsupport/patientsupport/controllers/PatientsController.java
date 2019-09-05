@@ -91,8 +91,10 @@ public class PatientsController {
             String initials = middle != "" 
             ? itemToCreate.getFirstName().substring(0, 1) + middle + itemToCreate.getLastName().substring(0,1)
             : itemToCreate.getFirstName().substring(0, 1) + itemToCreate.getLastName().substring(0, 1);
-
             itemToCreate.setInitials(initials.toUpperCase());
+            String symbol = ", ";
+            String fullName = itemToCreate.getFirstName() + symbol + itemToCreate.getLastName();
+            itemToCreate.setAccountName(fullName);
             itemToCreate.setActive(true);
             itemToCreate.setCreatedBy(userService.getAuthUser().getEmail());
             itemToCreate.setCreatedAt(new Date());
@@ -149,8 +151,10 @@ public class PatientsController {
             String initials = middle != "" 
             ? itemToEdit.getFirstName().substring(0, 1) + middle + itemToEdit.getLastName().substring(0,1)
             : itemToEdit.getFirstName().substring(0, 1) + itemToEdit.getLastName().substring(0, 1);
-
             itemToEdit.setInitials(initials.toUpperCase());
+            String symbol = ", ";
+            String fullName = itemToEdit.getFirstName() + symbol + itemToEdit.getLastName();
+            itemToEdit.setAccountName(fullName);
 			itemToEdit.setLastModifiedBy(userService.getAuthUser().getEmail());
             itemToEdit.setLastModifiedAt(new Date());
             _repository.save(itemToEdit);

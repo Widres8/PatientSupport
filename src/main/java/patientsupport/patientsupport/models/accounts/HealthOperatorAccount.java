@@ -3,6 +3,7 @@ package patientsupport.patientsupport.models.accounts;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,7 +16,7 @@ import patientsupport.patientsupport.models.parameters.Audit;
 import patientsupport.patientsupport.models.parameters.HealthOperatorType;
 
 @Entity
-@Table(name = "HealthOperatorAccounts")
+@Table(name = "HealthOperatorAccounts", uniqueConstraints = @UniqueConstraint(columnNames = { "description" }))
 public class HealthOperatorAccount extends Audit<String> {
 
     @Id
@@ -28,6 +29,7 @@ public class HealthOperatorAccount extends Audit<String> {
 
     private boolean active;
 
+    @Min(value = 1, message = "{label.required}")
     private int healthOperatorTypeId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

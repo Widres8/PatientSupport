@@ -18,15 +18,16 @@
 </head>
 
 <body>
+    <div th:replace="layout/loader :: loader"></div>
     <div class="wrapper">
 
         <div th:replace="layout/sidebar :: sidebar"></div>
         <div class="main-panel">
-                <div th:replace="layout/header :: header"></div>
-                <div class="content">
-                    <h1>Bienvenidos</h1>
-                </div>
-                <div th:replace="layout/footer :: footer"></div>
+            <div th:replace="layout/header :: header"></div>
+            <div class="content">
+                <h1>Bienvenidos</h1>
+            </div>
+            <div th:replace="layout/footer :: footer"></div>
         </div>
     </div>
 
@@ -41,6 +42,17 @@
     <script th:src="@{/js/plugins/bootstrap-notify.js}"></script>
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script th:src="@{/js/paper-dashboard.min.js?v=2.0.0}" type="text/javascript"></script>
+    <script th:src="@{/js/custom/locale-i18n.js}"></script>
+    <script>
+        $(document).ready(function () {
+            loader();
+        });
+        /*------------------ Preloder --------------------*/
+        function loader() {
+            $(".loader").fadeOut();
+            $("#preloder").delay(400).fadeOut("slow");
+        }
+    </script>
 </body>
 
 </html>

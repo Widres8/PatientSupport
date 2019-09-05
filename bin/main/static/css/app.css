@@ -41,3 +41,57 @@ div.dataTables_filter input {
     border-color: #51bcda;
     border-radius: 7px;
 }
+
+/*------------------
+	Preloder
+--------------------*/
+#preloder {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999999;
+    background: #f1f1f1;
+    display: table;
+}
+
+.loader {
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.loader img {
+    animation: loader 0.8s linear infinite;
+    -webkit-animation: loader 0.8s linear infinite;
+}
+
+.loader h2 {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+@keyframes loader {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes loader {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 1;
+    }
+}

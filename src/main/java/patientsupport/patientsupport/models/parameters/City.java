@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,6 +39,7 @@ public class City extends Audit<String> {
     @Length(max = 100)
     private String description;
 
+    @Min(value = 1, message = "{label.required}")
     private int departmentId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
