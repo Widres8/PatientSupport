@@ -65,15 +65,18 @@
                           <td th:text="${item.description}"></td>
                           <td th:text="${item.getCities().size()}"></td>
                           <td>
-                            <a class="btn btn-warning btn-sm" th:href="@{/departments/edit/{id}(id=${item.id})}">
+                            <a class="btn btn-warning btn-sm" th:href="@{/departments/edit/{id}(id=${item.id})}"
+                              data-toggle="tooltip" data-placement="top" th:attr="title=#{label.edit}">
                               <i class="fa fa-edit"></i>
                             </a>
                             <a class="btn btn-primary btn-sm"
-                              th:href="@{/cities/{departmentId}(departmentId=${item.id})}">
+                              th:href="@{/cities/{departmentId}(departmentId=${item.id})}" data-toggle="tooltip"
+                              data-placement="top" th:attr="title=#{label.details}">
                               <i class="fa fa-eye"></i>
                             </a>
-                            <button class="btn btn-danger btn-sm swalDelete" th:attr="data-id=${item.id}"
-                              data-url="/departments/delete/">
+                            <button class="btn btn-danger btn-sm swalDelete"
+                              th:attr="data-id=${item.id}, title=#{label.delete}" data-toggle="tooltip"
+                              data-placement="top" data-url="/departments/delete/">
                               <i class="fa fa-trash"></i>
                             </button>
                           </td>
@@ -120,6 +123,7 @@
   <script>
     $(document).ready(function () {
       loader();
+      $('[data-toggle="tooltip"]').tooltip();
     });
     /*------------------ Preloder --------------------*/
     function loader() {
