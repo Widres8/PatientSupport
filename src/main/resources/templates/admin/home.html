@@ -1,58 +1,22 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Support Patient - Home</title>
+  <title>Support Patient - Home</title>
 
-    <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-
-    <!-- CSS Files -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/paper-dashboard.css?v=2.0.0}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}" />
 </head>
 
 <body>
-    <div th:replace="layout/loader :: loader"></div>
-    <div class="wrapper">
+  <div class="col" layout:fragment="content">
+    <div class="card">
+      <div class="card-header">
+        <h1 class="card-title d-inline"> Bienvenidos </h1>
+      </div>
+      <div class="card-body">
 
-        <div th:replace="layout/sidebar :: sidebar"></div>
-        <div class="main-panel">
-            <div th:replace="layout/header :: header"></div>
-            <div class="content">
-                <h1>Bienvenidos</h1>
-            </div>
-            <div th:replace="layout/footer :: footer"></div>
-        </div>
+      </div>
     </div>
-
-    <!--   Core JS Files   -->
-    <script th:src="@{/js/core/jquery.min.js}"></script>
-    <script th:src="@{/js/core/popper.min.js}"></script>
-    <script th:src="@{/js/core/bootstrap.min.js}"></script>
-    <script th:src="@{/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
-    <!-- Chart JS -->
-    <script th:src="@{/js/plugins/chartjs.min.js}"></script>
-    <!--  Notifications Plugin    -->
-    <script th:src="@{/js/plugins/bootstrap-notify.js}"></script>
-    <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-    <script th:src="@{/js/paper-dashboard.min.js?v=2.0.0}" type="text/javascript"></script>
-    <script th:src="@{/js/custom/locale-i18n.js}"></script>
-    <script>
-        $(document).ready(function () {
-            loader();
-        });
-        /*------------------ Preloder --------------------*/
-        function loader() {
-            $(".loader").fadeOut();
-            $("#preloder").delay(400).fadeOut("slow");
-        }
-    </script>
+  </div>
 </body>
 
 </html>
