@@ -38,8 +38,8 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.github.raghubs81/jreport
 	compile group: 'com.github.raghubs81', name: 'jreport', version: '1.0'
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+	// testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// testImplementation 'org.springframework.security:spring-security-test'
 
 	dev("org.springframework.boot:spring-boot-devtools")
 	
