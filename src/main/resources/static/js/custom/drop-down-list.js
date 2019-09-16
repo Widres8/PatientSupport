@@ -16,7 +16,7 @@ function getZones(countryId) {
     $("#zoneId").append('<option value="0">Seleccione una opción</option>');
     $.ajax({
         type: "POST",
-        url: '/departments/getZonesByCountryId',
+        url: '/generics/getZonesByCountryId',
         dataType: 'json',
         data: {countryId: countryId},
         success: function (data) {
@@ -39,7 +39,7 @@ function getCities(departmentId) {
     $("#cityId, #treatmentCityId").append('<option value="0">Seleccione una opción</option>');
     $.ajax({
         type: "POST",
-        url: '/patients/getCitiesByDepartmentId',
+        url: '/generics/getCitiesByDepartmentId',
         dataType: 'json',
         data: {departmentId: departmentId},
         success: function (data) {
@@ -62,7 +62,7 @@ function getStatusReason(statusId) {
     $("#statusReasonId").append('<option value="0">Seleccione una opción</option>');
     $.ajax({
         type: "POST",
-        url: '/status/getStatusReasonByStatusId',
+        url: '/generics/getStatusReasonByStatusId',
         dataType: 'json',
         data: {statusId: statusId},
         success: function (data) {

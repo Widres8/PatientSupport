@@ -1,9 +1,6 @@
 package patientsupport.patientsupport.controllers;
 
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import javax.validation.Valid;
 
@@ -19,13 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import patientsupport.patientsupport.helpers.Selects;
 import patientsupport.patientsupport.helpers.Translator;
-import patientsupport.patientsupport.models.parameters.Country;
 import patientsupport.patientsupport.models.parameters.Department;
-import patientsupport.patientsupport.models.parameters.Zone;
-import patientsupport.patientsupport.repository.CountryRepository;
 import patientsupport.patientsupport.repository.DepartmentRepository;
-import patientsupport.patientsupport.repository.ZoneRepository;
 import patientsupport.patientsupport.services.UserService;
 
 @Controller
@@ -33,19 +27,16 @@ import patientsupport.patientsupport.services.UserService;
 public class DepartmentsController {
 
     private String pathView = "admin/departments";
-    private CountryRepository countryRepository;
-    private ZoneRepository zoneRepository;
+    private Selects selects;
     private DepartmentRepository _repository;
     private UserService userService;
 
     @Autowired
     public DepartmentsController(
-        CountryRepository countryRepository, 
-        ZoneRepository zoneRepository, 
+        Selects selects, 
         DepartmentRepository _repository, 
         UserService userService){
-        this.countryRepository = countryRepository;
-        this.zoneRepository = zoneRepository;
+        this.selects = selects;
         this._repository = _repository;
         this.userService = userService;
     }
@@ -64,8 +55,8 @@ public class DepartmentsController {
     public ModelAndView create(Department itemToCreate) {
         ModelAndView view = new ModelAndView();
         
-        view.addObject("countries", getCountries());
-        view.addObject("zones", getZones(0));
+        view.addObject("countries", selects.getCountries());
+        view.addObject("zones", selects.getZones(0));
         view.setViewName(pathView + "/create");
         return view;
     }
@@ -73,8 +64,8 @@ public class DepartmentsController {
     @RequestMapping(value = "/create",method = RequestMethod.POST)
     public ModelAndView store(@Valid Department itemToCreate, BindingResult result, Model model, @RequestParam("countryId") Integer countryId) {
         ModelAndView view = new ModelAndView();
-        view.addObject("countries", getCountries());
-        view.addObject("zones", getZones(countryId));
+        view.addObject("countries", selects.getCountries());
+        view.addObject("zones", selects.getZones(countryId));
         if (result.hasErrors()) {
             view.setViewName(pathView + "/create");
             return view;
@@ -103,8 +94,8 @@ public class DepartmentsController {
         ModelAndView view = new ModelAndView();
         Department itemToEdit = findById(id);
         model.addAttribute("department", itemToEdit);
-        view.addObject("countries", getCountries());
-        view.addObject("zones", getZones(itemToEdit.getZone().getCountryId()));
+        view.addObject("countries", selects.getCountries());
+        view.addObject("zones", selects.getZones(itemToEdit.getZone().getCountryId()));
         view.setViewName(pathView + "/edit");
         return view;
     }
@@ -112,8 +103,8 @@ public class DepartmentsController {
     @RequestMapping(value = "/update/{id}",method = RequestMethod.PUT)
     public ModelAndView update(@PathVariable("id") Integer id, @Valid Department itemToEdit, BindingResult result, Model model) {
         ModelAndView view = new ModelAndView();
-        view.addObject("countries", getCountries());
-        view.addObject("zones", getZones(findById(id).getZone().getCountryId()));
+        view.addObject("countries", selects.getCountries());
+        view.addObject("zones", selects.getZones(findById(id).getZone().getCountryId()));
         if (result.hasErrors()) {
             view.setViewName(pathView + "/edit");
             return view;
@@ -147,37 +138,9 @@ public class DepartmentsController {
         }
     }
 
-    @RequestMapping(value = "/getZonesByCountryId", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody List<Zone> getZonesByCountryId(@RequestParam Integer countryId) {
-		try {
-			return getZones(countryId);
-
-		} catch (Exception ex) {
-			return null;
-		}
-	}
-
     private Department findById(int id) {
         return _repository.findById(id).orElseThrow(() -> 
                     new IllegalArgumentException("Invalid item Id:" + id));
     }
 
-    private List<Country> getCountries() {
-        Iterable<Country> list = () -> StreamSupport.stream(countryRepository.findAll().spliterator(), false)
-        .filter(c -> c.getZones().size() > 0)
-        .iterator();
-
-        List<Country> result = StreamSupport.stream(list.spliterator(), false)
-        .collect(Collectors.toList());
-        return result;
-    }
-
-    private List<Zone> getZones(Integer countryId) {
-        List<Zone> result = zoneRepository
-        .findByCountryId(countryId)
-        .stream()
-        .filter( x -> x.getActive())
-        .collect(Collectors.toList());
-        return result;
-    }
 }
