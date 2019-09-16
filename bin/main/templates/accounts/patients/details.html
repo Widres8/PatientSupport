@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <title>Support Patient - Patients</title>
+
+</head>
+
+<body>
+    <div class="col" layout:fragment="content">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title d-inline">
+                    <span th:text="${patient.fullName()}"></span>
+                </h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.department}"></dt>
+                    <dd class="col-md-9" th:text="${patient.getDepartment().getDescription()}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.city}"></dt>
+                    <dd class="col-md-9" th:text="${patient.getCity().getDescription()}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.names}"></dt>
+                    <dd class="col-md-9" th:text="${patient.fullName()}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.accountName}"></dt>
+                    <dd class="col-md-9" th:text="${patient.accountName}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.address}"></dt>
+                    <dd class="col-md-9" th:text="${patient.address}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.email}"></dt>
+                    <dd class="col-md-9" th:text="${patient.email}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.documenttype}"></dt>
+                    <dd class="col-md-9" th:text="${patient.getDocumentType().getAlias()}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.document}"></dt>
+                    <dd class="col-md-9" th:text="${patient.document}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.gender}"></dt>
+                    <dd class="col-md-9" th:text="${patient.gender}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.phone1}"></dt>
+                    <dd class="col-md-9" th:text="${patient.phone1}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.phone2}"></dt>
+                    <dd class="col-md-9" th:text="${patient.phone2}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.birthday}"></dt>
+                    <dd class="col-md-9" th:text="${patient.birthDay.toString().substring(0,10)}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.initials}"></dt>
+                    <dd class="col-md-9" th:text="${patient.initials}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.active}"></dt>
+                    <dd class="col-md-9" th:text="${patient.active}"></dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3" th:text="#{label.createdBy}"></dt>
+                    <dd class="col-md-9" th:text="${patient.createdBy}"></dd>
+                </dl>
+                <a type="button" class="btn btn-info" th:href="@{/patients}">
+                    <i class="fa fa-arrow-left"></i> <span th:text="#{label.back}"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

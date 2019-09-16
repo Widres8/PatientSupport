@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+  <title>Support Patient - Cases</title>
+
+</head>
+
+<body>
+  <div class="col" layout:fragment="content">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title d-inline">
+          <span th:text="#{label.events}"></span>
+        </h4>
+        <!-- <a class="btn btn-info btn-sm float-right" th:href="@{/events/create/}">
+              <i class="fa fa-plus"> <span th:text="#{label.new}"></span></i>
+            </a> -->
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <div id="calender"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div layout:fragment="scripts">
+    <div class="modal" tabindex="-1" role="dialog" id="createModal">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <span th:text="#{label.new}" id="isCreate"></span>
+              <span th:text="#{label.edit}" id="isEdit"></span>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form action="/events/create" method="post" id="createForm">
+            <div class="modal-body">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group col-md-12">
+                    <label for="subject" class="col-form-label">
+                      <span th:text="#{label.eventtype}"></span>
+                    </label>
+                    <select class="form-control" id="eventtypeid" required>
+                      <option value=""><span th:text="#{label.selectoption}"></span></option>
+                      <option th:each="item : ${eventTypes}" th:value="${item.id}" th:text="${item.description}">
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label for="color" class="col-form-label"><span th:text="#{label.color}"></span></label>
+                    <select class="form-control" id="color" required>
+                      <option value=""><span th:text="#{label.selectoption}"></span></option>
+                      <option th:each="item : ${colors}" th:value="${item.value}" th:text="${item.text}"></option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label for="subject" class="col-form-label"><span th:text="#{label.subject}"></span></label>
+                    <input name="subject" type="text" class="form-control" id="subject" required>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label for="startDate" class="col-form-label"><span th:text="#{label.startDate}"></span></label>
+                    <input size="16" type="text" value="" name="startDate" id="startDate"
+                      class="form-control form_datetime" readonly>
+                  </div>
+
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group col-md-12">
+                    <label for="isFullDay" class="col-form-label"><span th:text="#{label.isFullDay}"></span></label>
+                    <input type="checkbox" name="isFullDay" id="isFullDay" checked class="check">
+                  </div>
+                  <div class="form-group col-md-12" id="divEndDate" style="display:none">
+                    <label for="endDate" class="col-form-label"><span th:text="#{label.endDate}"></span></label>
+                    <input size="16" type="text" value="" name="endDate" id="endDate" class="form-control form_datetime"
+                      readonly>
+                  </div>
+
+                  <div class="form-group col-md-12">
+                    <label for="observations" class="col-form-label"><span
+                        th:text="#{label.observations}"></span></label>
+                    <textarea name="observations" id="observations" cols="30" rows="10" class="form-control"
+                      required></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                <span th:text="#{label.cancel}"></span>
+              </button>
+              <button type="submit" class="btn btn-primary" id="createEvenClick">
+                <span th:text="#{label.new}"></span>
+              </button>
+              <button type="submit" class="btn btn-primary" id="editEvenClick">
+                <span th:text="#{label.edit}"></span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- CSS Files DateTime Picker -->
+    <link rel="stylesheet" type="text/css"
+      th:href="@{/js/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css}" />
+
+    <!-- CSS Files fullCalendar -->
+    <link rel="stylesheet" type="text/css" th:href="@{/js/plugins/fullcalendar/fullcalendar.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/js/plugins/fullcalendar/fullcalendar.print.min.css}"
+      media="print" />
+    <!--  Full Calendar    -->
+    <script th:src="@{/js/plugins/fullcalendar/moment.min.js}"></script>
+    <script th:src="@{/js/plugins/fullcalendar/moment-with-locales.min.js}"></script>
+    <script th:src="@{/js/plugins/fullcalendar/fullcalendar.min.js}"></script>
+    <!--  DateTime Picker    -->
+    <script th:src="@{/js/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+    <script>
+      $(document).ready(function () {
+        $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
+
+        //show and hide control end date
+        $('#isFullDay').change(function () {
+          if ($(this).is(':checked')) {
+            $('#divEndDate').hide();
+          }
+          else {
+            $('#divEndDate').show();
+          }
+        });
+      });
+    </script>
+  </div>
+</body>
+
+</html>

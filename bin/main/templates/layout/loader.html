@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder" th:fragment="loader">
+        <div class="loader">
+            <img th:src="@{/img/logo.png}" style="max-width: 300px;">
+            <h1 class="mt-3 p-5" th:text="#{label.loading}"></h1>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+  <title>Support Patient - Approvals</title>
+
+</head>
+
+<body>
+  <div class="content" layout:fragment="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title d-inline"> <span th:text="#{label.approvals}"></span> </h4>
+              <a class="btn btn-info btn-sm float-right" th:href="@{/approvals/create}">
+                <i class="fa fa-plus"> <span th:text="#{label.new}"></span></i>
+              </a>
+            </div>
+            <div class="card-body">
+              <div class="content">
+                <table id="myDatatable" class="table table-striped tablecontainer">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th th:text="#{label.aprovaltype}"></th>
+                      <th th:text="#{label.approvaldate}"></th>
+                      <th th:text="#{label.aproved}"></th>
+                      <th th:text="#{label.approvalexpirationdate}"></th>
+                      <th th:text="#{label.cases}"></th>
+                      <th th:text="#{label.actions}"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="item : ${approvals}">
+                      <td th:text="${item.id}"></td>
+                      <td th:text="${item.aprovaltype}"></td>
+                      <td th:text="${item.approvaldate}"></td>
+                      <td th:text="${item.approvalexpirationdate}"></td>
+                      <td>
+                        <a class="btn btn-warning btn-sm" th:href="@{/approvals/edit/{id}(id=${item.id})}"
+                          data-toggle="tooltip" data-placement="top" th:attr="title=#{label.edit}">
+                          <i class="fa fa-edit"></i>
+                        </a>
+                        <button class="btn btn-danger btn-sm swalDelete"
+                          th:attr="data-id=${item.id}, title=#{label.delete}" data-url="/approvals/delete/"
+                          data-toggle="tooltip" data-placement="top">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

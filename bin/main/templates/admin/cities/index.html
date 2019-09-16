@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+  <title>Support Patient - Cities</title>
+
+</head>
+
+<body>
+  <div class="col" layout:fragment="content">
+      <div class="card">
+          <div class="card-header">
+            <h4 class="card-title d-inline">
+              <span th:text="#{label.cities}"></span> -
+              <span th:text="${Department.getDescription()}"></span>
+            </h4>
+            <a class="btn btn-info btn-sm float-right"
+              th:href="@{/cities/create/{departmentId}(departmentId=${Department.getId()})}">
+              <i class="fa fa-plus"> <span th:text="#{label.new}"></span></i>
+            </a>
+            <a class="btn btn-deafult btn-sm float-right" th:href="@{/departments}">
+              <i class="fa fa-arrow-left"> <span th:text="#{label.departments}"></span></i>
+            </a>
+          </div>
+          <div class="card-body">
+            <div class="content">
+              <table id="myDatatable" class="table table-striped tablecontainer">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th th:text="#{label.department}"></th>
+                    <th th:text="#{label.description}"></th>
+                    <th th:text="#{label.actions}"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="item : ${Cities}">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.getDepartment().getDescription()}"></td>
+                    <td th:text="${item.description}"></td>
+                    <td>
+                      <a class="btn btn-warning btn-sm"
+                        th:href="@{/cities/edit/{departmentId}/{id}(departmentId=${Department.getId()}, id=${item.id})}"
+                        data-toggle="tooltip" data-placement="top" th:attr="title=#{label.edit}">
+                        <i class="fa fa-edit"></i>
+                      </a>
+                      <button class="btn btn-danger btn-sm swalDelete"
+                        th:attr="data-id=${item.id}, title=#{label.delete}" data-toggle="tooltip"
+                        data-placement="top" data-url="/cities/delete/">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+  </div>
+  <div layout:fragment="scripts">
+        <script>
+            $(document).ready(function () {
+            });
+        </script>
+    </div>
+</body>
+
+</html>

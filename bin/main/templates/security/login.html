@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login/now-ui-kit.css?v=1.2.0}" />
+</head>
+
+<body class="login-page">
+    <div class="page-header clear-filter" filter-color="orange">
+        <div class="page-header-image" style="background-image:url(/img/login.jpg)" title="Photo by Online Marketing on Unsplash"></div>
+        <div class="content">
+            <div class="container">
+                <div class="col-sm-8 col-md-6 col-lg-4 ml-auto mr-auto">
+                    <div class="card card-login card-plain">
+                        <form th:action="@{/login}" method="post" class="form form-signin">
+                            <div class="card-header text-center">
+                                <div class="logo-container">
+                                    <img src="/img/logo.png" alt="">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-group no-border input-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-user" style="color: hsla(0,0%,100%,.8);"></i>
+                                        </span>
+                                    </div>
+                                    <input type="email" id="email" name="email" class="form-control" required th:placeholder="#{label.email}" />
+                                </div>
+                                <div class="input-group no-border input-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-user-secret" style="color: hsla(0,0%,100%,.8);"></i>
+                                        </span>
+                                    </div>
+                                    <input type="password" id="password" name="password" class="form-control" required th:placeholder="#{label.password}" />
+                                </div>
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="submit" class="btn btn-primary btn-round btn-lg btn-block">
+                                    <span th:text="#{label.login}"></span>
+                                </button>
+                                <div class="pull-left">
+                                    <h6>
+                                        <a href="#pablo" class="link text-white">
+                                            <span th:text="#{label.forgotpassword}"></span>
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div class="pull-right">
+                                    <!-- <h6>
+                                        <a href="#pablo" class="link text-white">Need Help?</a>
+                                    </h6> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer" th:replace="layout/footer :: footer"></div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header" style="width: 100%;">Bienvenidos</div>
+            <div class="card-body">
+                <form th:action="@{/login}" method="post" class="form-signin">
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label for="inputEmail">Correo</label>
+                            <input type="text" id="email" name="email" th:placeholder="Email" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label for="inputPassword">Contraseña</label>
+                            <input type="password" th:placeholder="Password" id="password" name="password"
+                                class="form-control" />
+                        </div>
+                    </div>
+                    <p class="alert alert-danger" th:if="*{error !='NULL'}" th:text="*{error}"></p>
+                    <p><input type="submit" value="Ingresar" class="btn btn-success btn-block" /></p>
+                </form>
+            </div>
+        </div>
+    </div> -->
+</body>
+
+</html>
