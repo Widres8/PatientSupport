@@ -9,8 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import patientsupport.patientsupport.models.email.EmailConfiguration;
-import patientsupport.patientsupport.models.email.Mail;
+import patientsupport.patientsupport.helpers.email.EmailConfiguration;
+import patientsupport.patientsupport.helpers.email.Mail;
 
 
 

@@ -1,4 +1,4 @@
-package patientsupport.patientsupport.models.email;
+package patientsupport.patientsupport.helpers.email;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

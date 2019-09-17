@@ -1,4 +1,4 @@
-package patientsupport.patientsupport.models.email;
+package patientsupport.patientsupport.helpers.email;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
