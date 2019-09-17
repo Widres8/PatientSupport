@@ -36,7 +36,7 @@
                 <td th:text="${item.code}"></td>
                 <td th:text="${item.patient.fullName()}"></td>
                 <td th:text="${item.enrollmentDate.toString().substring(0,10)}"></td>
-                <td th:text="${item.therapyStartDate}"></td>
+                <td th:text="${item.therapyStartDate !=  null ? item.therapyStartDate.toString().substring(0,10) : item.therapyStartDate}"></td>
                 <td>
                   <a class="btn btn-warning btn-sm" th:href="@{/cases/edit/{id}(id=${item.id})}" data-toggle="tooltip"
                     data-placement="top" th:attr="title=#{label.edit}">
