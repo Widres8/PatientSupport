@@ -12,9 +12,9 @@
         <div class="card wizard-card" data-color="orange" id="wizard">
             <form action="#" th:action="@{/cases/update/{id}(id=${case.id})}" th:object="${case}"
             th:method="put">
-            <!-- <input th:field="*{createdBy}" type="hidden" class="form-control" id="createdBy">
+            <input th:field="*{createdBy}" type="hidden" class="form-control" id="createdBy">
             <input th:field="*{createdAt}" th:value="*{createdAt}" type="hidden" class="form-control"
-                id="createdAt"> -->
+                id="createdAt">
             <input th:field="*{id}" type="hidden" class="form-control" id="id">
             <input th:field="*{code}" type="hidden" class="form-control" id="code">
             <input th:field="*{enrollmentDate}" type="hidden" class="form-control" id="enrollmentDate">
@@ -261,7 +261,7 @@
                     <!-- <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd'
                         name='finish' value='Finish' /> -->
                     <button type="submit"  class='btn btn-finish btn-fill btn-warning btn-wd' name='finish'>
-                        <i class="fa fa-save"></i> <span th:text="#{label.new}"></span>
+                        <i class="fa fa-save"></i> <span th:text="#{label.update}"></span>
                     </button>
                 </div>
 
@@ -294,9 +294,7 @@
     <script th:src="@{/js/plugins/wizard-form/jquery.bootstrap.wizard.js}" type="text/javascript"></script>
     <script th:src="@{/js/plugins/wizard-form/paper-bootstrap-wizard.js}"></script>
     <!--  Custom JS   -->
-    <script th:src="@{/js/custom/drop-down-list.js}"></script>
     <script th:src="@{/js/plugins/select2/select2.min.js}"></script>
-    <script th:src="@{/js/plugins/maskedinput/jquery.maskedinput.js}"></script>
     <script>
         $(document).ready(function () {
             $('#treatmentDepartmentId').select2();

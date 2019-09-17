@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -108,24 +107,6 @@ public class EventsController {
     }
 
     /**
-     * Request edit, get data by object filter by id.
-     * @param id
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public ModelAndView edit(@PathVariable("id") Integer id,Model model) {
-    
-        ModelAndView view = new ModelAndView();
-        Event itemToEdit = findById(id);
-        view.addObject("event", itemToEdit);
-        view.addObject("eventType", eventTypeRepository.findAll());
-        view.setViewName(pathView + "/edit");
-        return view;
-
-    }
-
-    /**
      * Update data from id event.
      * @param id
      * @param itemToEdit
@@ -133,31 +114,28 @@ public class EventsController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public ModelAndView update(@PathVariable("id") Integer id,@Valid Event itemToEdit, BindingResult result,Model model) {
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = "application/json")
+    public @ResponseBody String update(@PathVariable("id") Integer id, @RequestBody @Valid Event itemToEdit, HttpServletRequest request) {
 
-        ModelAndView view = new ModelAndView();
-
-        if(result.hasErrors()) {
-            view.setViewName(pathView + "/edit");
-            return view;
-        }
+        String message = "";
+        Event event = findById(id);
         try {
+            itemToEdit.setCreatedAt(event.getCreatedAt());
+            itemToEdit.setCreatedBy(event.getCreatedBy());
             itemToEdit.setLastModifiedAt(new Date());
             itemToEdit.setLastModifiedBy(userService.getAuthUser().getEmail());
             _repository.save(itemToEdit);
-            view.setViewName("redirect:/events");
-            return view;
+            message =  "{\"Status\":\"200\",\"Message\":\"Registro actualizado correctamente\"}";
+            
         } catch (DataAccessException ex) {
             if(ex.getClass().getSimpleName().equals("DataIntegrityViolationException")) {
-                model.addAttribute("error", Translator.toLocale("label.dataIntegrityViolationException"));
+                message = "{\"Status\":\"400\",\"Error\":"+Translator.toLocale("label.dataIntegrityViolationException") + "}";
             } else {
-                model.addAttribute("error",ex.getMessage());
+                message = "{\"Status\":\"400\",\"Error\":\""+ex.getMessage()+"\"}";
             }
-            view.setViewName(pathView + "/edit");
-            return view;
-            
         }
+
+        return message;
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")

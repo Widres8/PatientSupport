@@ -37,9 +37,9 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form action="/events/create" method="post" id="createForm">
+          <form action="#" method="post" id="createForm">
             <div class="modal-body">
-
+              <input name="id" type="hidden" class="form-control" id="id" required>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group col-md-12">
@@ -65,7 +65,7 @@
                   </div>
                   <div class="form-group col-md-12">
                     <label for="startDate" class="col-form-label"><span th:text="#{label.startDate}"></span></label>
-                    <input size="16" type="text" value="" name="startDate" id="startDate"
+                    <input size="16" type="text" value="" name="startDate" id="startDate" pattern="yyyy-MM-dd'T'HH:mm"
                       class="form-control form_datetime" readonly>
                   </div>
 
@@ -119,6 +119,7 @@
     <script th:src="@{/js/plugins/fullcalendar/fullcalendar.min.js}"></script>
     <!--  DateTime Picker    -->
     <script th:src="@{/js/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+    <script th:src="@{/js/custom/full-calendar-user.js}"></script>
     <script>
       $(document).ready(function () {
         $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });

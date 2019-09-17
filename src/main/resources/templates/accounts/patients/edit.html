@@ -39,6 +39,7 @@
                                         th:text="${department.description}">
                                     </option>
                                 </select>
+                                <span th:if="${#fields.hasErrors('departmentId')}" th:errors="*{departmentId}" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="cityId" class="col-form-label">
@@ -49,6 +50,7 @@
                                     <option th:each="city : ${cities}" th:value="${city.id}"
                                         th:text="${city.description}"></option>
                                 </select>
+                                <span th:if="${#fields.hasErrors('cityId')}" th:errors="*{cityId}" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="firstName" class="col-form-label"><span

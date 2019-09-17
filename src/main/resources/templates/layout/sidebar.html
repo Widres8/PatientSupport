@@ -1,7 +1,9 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> -->
 
+<html xmlns:th="https://www.thymeleaf.org"  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 
 </head>
@@ -16,6 +18,9 @@
             </a>
             <a th:href="@{/home}" class="simple-text logo-normal" id="nombreUsuario" style="font-size: 12px;">
                 <span sec:authentication="name"></span>
+                <security:authorize access="isAuthenticated()">
+                    authenticated as <security:authentication property="principal.username" /> 
+                </security:authorize>
             </a>
         </div>
         <div class="sidebar-wrapper">

@@ -156,7 +156,7 @@ public class CasesController {
         view.addObject("cities",selects.getCities(itemToEdit.getTreatmentDepartmentId()));
         view.addObject("therapies", therapyRepository.findAll());
         view.addObject("status", statusRepository.findAll());
-        view.addObject("statusReasons", selects.getStatusReasons(itemToEdit.getStatusReasonId()));
+        view.addObject("statusReasons", selects.getStatusReasons(itemToEdit.getStatusId()));
         view.addObject("stages", stageRepository.findAll());
         view.addObject("physicians", physicianRepository.findAll());
         view.addObject("patients", patientRepository.findAll());
@@ -176,7 +176,7 @@ public class CasesController {
         view.addObject("cities",selects.getCities(itemToEdit.getTreatmentDepartmentId()));
         view.addObject("therapies", therapyRepository.findAll());
         view.addObject("status", statusRepository.findAll());
-        view.addObject("statusReasons", selects.getStatusReasons(itemToEdit.getStatusReasonId()));
+        view.addObject("statusReasons", selects.getStatusReasons(itemToEdit.getStatusId()));
         view.addObject("stages", stageRepository.findAll());
         view.addObject("physicians", physicianRepository.findAll());
         view.addObject("patients", patientRepository.findAll());

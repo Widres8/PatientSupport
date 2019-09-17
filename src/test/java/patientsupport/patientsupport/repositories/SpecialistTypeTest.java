@@ -1,6 +1,7 @@
 package patientsupport.patientsupport.repositories;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,33 +11,36 @@ import org.springframework.core.annotation.Order;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import patientsupport.patientsupport.models.parameters.Status;
-import patientsupport.patientsupport.repository.StatusRepository;
+import patientsupport.patientsupport.models.parameters.SpecialistType;
+import patientsupport.patientsupport.repository.SpecialistTypeRepository;
 
 @RunWith(SpringRunner.class)
 @TestPropertySource(locations="classpath:application-test.properties")
 @SpringBootTest
-public class StatusRepositoryTest {
+public class SpecialistTypeTest {
 
     @Autowired
-    public StatusRepository statusRepository;
+    public SpecialistTypeRepository repository;
 
+    public SpecialistTypeTest() {
+        super();
+    }
+    
     @Test
     @Order(1)
     public void testDelete() {
-        statusRepository.deleteAll();
-        assertEquals(0, statusRepository.count());
+        repository.deleteAll();
+        assertEquals(0, repository.count());
     }
 
     @Test
     @Order(2)
     public void testInsert() {
-        Status itemToCreate = new Status();
-        itemToCreate.setActive(true);
-        itemToCreate.setDescription("Inicial");
+        SpecialistType itemToCreate = new SpecialistType();
+        itemToCreate.setDescription("Cardiología");
         
         // When
-        Status itemSaved = statusRepository.save(itemToCreate);
+        SpecialistType itemSaved = repository.save(itemToCreate);
 
         // Validate
         assertEquals(itemToCreate, itemSaved);
@@ -45,15 +49,14 @@ public class StatusRepositoryTest {
     @Test
     @Order(3)
     public void testUpdate() {
-        Status itemToUpdate = statusRepository.findById(1).get();
-        itemToUpdate.setActive(false);
-        itemToUpdate.setDescription("Final");
+        SpecialistType itemToUpdate = repository.findById(1).get();
+        itemToUpdate.setDescription("Administrativo");
         
         // When
-        Status itemSaved = statusRepository.save(itemToUpdate);
+        SpecialistType itemSaved = repository.save(itemToUpdate);
 
         // Validate
-        assertEquals(itemToUpdate.getDescription(), itemSaved.getDescription());
+        assertNotEquals(itemToUpdate, itemSaved);
     }
     
 }

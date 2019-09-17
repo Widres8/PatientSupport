@@ -49,7 +49,6 @@ public class Patient extends Audit<String> {
     @Length(max = 50)
     private String lastName;
 
-    @NotEmpty(message = "This field is required")
     @Length(max = 100)
     private String accountName;
 

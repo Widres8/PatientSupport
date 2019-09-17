@@ -9,7 +9,6 @@ $(document).ready(function() {
     $('#createForm').submit(function(event) {
         event.preventDefault();
         createEventPost();
-        
     });
 
     $('#createModal').on('hidden.bs.modal', function (e) {
@@ -20,6 +19,7 @@ $(document).ready(function() {
 
 function createEventPost() {
     var itemToCreate = {
+        id: $('#id').val(),
         subject: $('#subject').val(),
         startDate: new Date($('#startDate').val()),
         endDate: new Date($('#endDate').val()),
@@ -30,15 +30,15 @@ function createEventPost() {
     };
 
     $.ajax({
-        type: 'POST',
-        url: '/events/create',
+        type: itemToCreate.id > 0 ? 'PUT' :'POST',
+        url: $("#createForm").attr('action'),
         contentType:"application/json",
         datatype: 'json',
         data: JSON.stringify(itemToCreate),
         success: function (data) {
             if (data.Status == 200) {
                 swal("Ok", data.Message, "success");
-                setInterval('location.reload()', 1000);
+                location.reload();
             } else {
                 swal("¡Error!", data.Error, "error");
             }   
@@ -53,7 +53,9 @@ function createEvent(startDate) {
     $('#editEvenClick').hide();
     $('#createEvenClick').show();
     $('#startDate').val(startDate);
-    $('#createModal ').modal();
+    
+    $("#createForm").attr('action', '/events/create');
+    $('#createModal').modal();
 }
 
 function editEvent(event) {
@@ -61,16 +63,33 @@ function editEvent(event) {
     $('#isEdit').show();
     $('#editEvenClick').show();
     $('#createEvenClick').hide();
-
-    event.allDay ?  $('#isFullDay').attr('checked','checked') : $('#isFullDay').attr('checked','');
+    $('#isFullDay').attr('checked', event.allDay);
+    if (event.allDay) {
+        $('#divEndDate').hide();
+    }
+    else {
+        $('#divEndDate').show();
+    }
+    $('#id').val(event.id);
     $('#subject').val(event.title);
-    $('#startDate').val(event.start);
-    $('#endDate').val(event.end);
+    $('#startDate').val(getDateEvent(event.start));
+    $('#endDate').val(getDateEvent(event.end));
     $('#color').val(event.color);
     $('#observations').val(event.description);
     $('#eventtypeid').val(event.eventTypeId);
+    $("#createForm").attr('action', '/events/update/' + event.id);
     $('#createModal').modal();
 }
+
+function getDateEvent(date) {
+    if(date != null) {
+        var dt = new Date(date);
+        var ymd = dt.toISOString().slice(0,10);
+        var hour = dt.toTimeString().slice(0,5);
+        return ymd + ' ' + hour;
+    }
+}
+
 function getEvents() {
     $.ajax({
         type: 'GET',
@@ -85,8 +104,8 @@ function getEvents() {
                     eventTypeId: v.eventTypeId,
                     title: v.subject,
                     description: v.observations,
-                    start: moment(v.startDate),
-                    end: v.endDate != null ? moment(v.endDate) : null,
+                    start: new Date(v.startDate),
+                    end: v.endDate != null ? new Date(v.endDate) : null,
                     color: v.color,
                     allDay: v.isFullDay
                 });
