@@ -1,6 +1,8 @@
 package patientsupport.patientsupport.controllers;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -17,6 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import patientsupport.patientsupport.helpers.Selects;
 import patientsupport.patientsupport.helpers.Translator;
+import patientsupport.patientsupport.helpers.mail.EmailServiceImpl;
+import patientsupport.patientsupport.helpers.mail.Mail;
+import patientsupport.patientsupport.models.User;
+import patientsupport.patientsupport.models.accounts.Patient;
 import patientsupport.patientsupport.models.cases.Case;
 import patientsupport.patientsupport.repository.CaseRepository;
 import patientsupport.patientsupport.repository.HealtOperatorAccountRepository;
@@ -48,6 +54,7 @@ public class CasesController {
     private HealtOperatorAccountRepository healtOperatorAccountRepository;
     private InsuranceTypeRepository insuranceTypeRepository;
     private Selects selects;
+    private EmailServiceImpl emailService;
 
     /**
      * 
@@ -57,6 +64,7 @@ public class CasesController {
     @Autowired
     public CasesController(
         Selects selects,
+        EmailServiceImpl emailService,
         CaseRepository _repository,
         TherapyRepository therapyRepository,
         StatusRepository statusRepository,
@@ -78,6 +86,7 @@ public class CasesController {
         this.insuranceTypeRepository = insuranceTypeRepository;
         this.userRepository = userRepository;
         this.selects = selects;
+        this.emailService = emailService;
     }
     
     /**
@@ -112,7 +121,7 @@ public class CasesController {
     }
 
     @RequestMapping(value = "/create",method = RequestMethod.POST)
-    public ModelAndView store(@Valid Case itemToCreate, BindingResult result, Model model, @RequestParam("treatmentDepartmentId") Integer treatmentDepartmentId) {
+    public ModelAndView store(@Valid Case itemToCreate, BindingResult result, Model model, @RequestParam("treatmentDepartmentId") Integer treatmentDepartmentId) throws Exception {
         ModelAndView view = new ModelAndView();
         view.addObject("departments", selects.getDepartments());
         view.addObject("cities",selects.getCities(treatmentDepartmentId));
@@ -134,7 +143,10 @@ public class CasesController {
         try {
            itemToCreate.setCreatedBy(userService.getAuthUser().getEmail());
             itemToCreate.setEnrollmentDate(new Date());
-            _repository.save(itemToCreate);
+            Case itemSaved = _repository.save(itemToCreate);
+
+            sendEmail(itemSaved);
+            
             view.setViewName("redirect:/cases");
             return view;
 		} catch (DataAccessException ex) {
@@ -169,7 +181,7 @@ public class CasesController {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public ModelAndView update(@PathVariable("id") Integer id, @Valid Case itemToEdit,BindingResult result, Model model) {
+    public ModelAndView update(@PathVariable("id") Integer id, @Valid Case itemToEdit,BindingResult result, Model model) throws Exception {
 
         ModelAndView view = new ModelAndView();
         view.addObject("departments", selects.getDepartments());
@@ -191,7 +203,9 @@ public class CasesController {
             
             itemToEdit.setLastModifiedBy(userService.getAuthUser().getEmail());
             itemToEdit.setLastModifiedAt(new Date());
-            _repository.save(itemToEdit);
+            Case itemSaved = _repository.save(itemToEdit);
+
+            sendEmail(itemSaved);
             view.setViewName("redirect:/cases");
             return view;
 
@@ -209,6 +223,23 @@ public class CasesController {
     private Case findById(int id) {
         return _repository.findById(id).orElseThrow(() -> 
                     new IllegalArgumentException("Invalid item Id:" + id));
+    }
+
+    private void sendEmail(Case item) throws Exception {
+        Mail mail = new Mail();
+        User user = userRepository.findById(item.getFieldNurse()).get();
+        Patient patient = patientRepository.findById(item.getPatientId()).get();
+
+        mail.setTo(user.getEmail());
+        mail.setFrom("no-reply@patientsupport.com");
+        mail.setSubject("Creación Caso");
+
+        Map<String, Object> modelEmail = new HashMap<String, Object>();
+        modelEmail.put("name", user.getFirstName());
+        modelEmail.put("caseid", item.getCode());
+        modelEmail.put("patientname",patient.getAccountName());
+        mail.setModel(modelEmail);
+        emailService.sendSimpleMessage(mail);
     }
   
 }

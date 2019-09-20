@@ -17,7 +17,6 @@ import patientsupport.patientsupport.repository.StatusRepository;
 @RunWith(SpringRunner.class)
 @TestPropertySource(locations="classpath:application-test.properties")
 @SpringBootTest
-@Order(1)
 public class StatusTest {
 
     @Autowired
