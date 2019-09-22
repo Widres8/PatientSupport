@@ -19,7 +19,7 @@
             <a th:href="@{/home}" class="simple-text logo-normal" id="nombreUsuario" style="font-size: 12px;">
                 <span sec:authentication="name"></span>
                 <security:authorize access="isAuthenticated()">
-                    authenticated as <security:authentication property="principal.username" /> 
+                    authenticated <security:authentication property="principal.username" /> 
                 </security:authorize>
             </a>
         </div>
@@ -43,12 +43,12 @@
                         <span class="sidebar-normal" th:text="#{label.cases}"></span>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a th:href="@{/approvals}">
                         <i class="nc-icon nc-ambulance"></i>
                         <span class="sidebar-normal" th:text="#{label.approvals}"></span>
                     </a>
-                </li>
+                </li> -->
                 <li>
                     <a data-toggle="collapse" href="#accounts" class="collapsed" aria-expanded="false">
                         <i class="fa fa-user"></i>
@@ -79,36 +79,12 @@
                 </li>
                 <div sec:authorize="hasAuthority('ADMIN')">
                     <li>
-                        <a data-toggle="collapse" href="#configurations" class="collapsed" aria-expanded="false">
-                            <i class="fa fa-cog"></i>
-                            <p> <span th:text="#{label.config}"></span> <b class="caret"></b> </p>
+                        <a data-toggle="collapse" href="#masters" class="collapsed" aria-expanded="false">
+                            <i class="fa fa-table"></i>
+                            <p> <span th:text="#{label.masters}"></span> <b class="caret"></b> </p>
                         </a>
-                        <div class="collapse" id="configurations" style="">
+                        <div class="collapse" id="masters" style="">
                             <ul class="nav">
-                                <li>
-                                    <a th:href="@{/countries}">
-                                        <span class="sidebar-mini-icon">P-Z</span>
-                                        <span class="sidebar-normal">
-                                            <span class="sidebar-normal" th:text="#{label.countries}"></span> -
-                                            <span class="sidebar-normal" th:text="#{label.zones}"></span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/departments}">
-                                        <span class="sidebar-mini-icon">D-C</span>
-                                        <span class="sidebar-normal">
-                                            <span class="sidebar-normal" th:text="#{label.departments}"></span> -
-                                            <span class="sidebar-normal" th:text="#{label.cities}"></span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/documenttypes}">
-                                        <span class="sidebar-mini-icon">DT</span>
-                                        <span class="sidebar-normal" th:text="#{label.documenttypes}"></span>
-                                    </a>
-                                </li>
                                 <li>
                                     <a th:href="@{/eventtypes}">
                                         <span class="sidebar-mini-icon">ET</span>
@@ -152,12 +128,6 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/roles}">
-                                        <span class="sidebar-mini-icon">R</span>
-                                        <span class="sidebar-normal" th:text="#{label.roles}"></span>
-                                    </a>
-                                </li>
-                                <li>
                                     <a th:href="@{/servicetypes}">
                                         <span class="sidebar-mini-icon">ST</span>
                                         <span class="sidebar-normal" th:text="#{label.servicetypes}"></span>
@@ -173,6 +143,55 @@
                                     <a th:href="@{/therapies}">
                                         <span class="sidebar-mini-icon">ST</span>
                                         <span class="sidebar-normal" th:text="#{label.therapies}"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </div>
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <li>
+                        <a data-toggle="collapse" href="#configurations" class="collapsed" aria-expanded="false">
+                            <i class="fa fa-cog"></i>
+                            <p> <span th:text="#{label.config}"></span> <b class="caret"></b> </p>
+                        </a>
+                        <div class="collapse" id="configurations" style="">
+                            <ul class="nav">
+                                <li>
+                                    <a th:href="@{/countries}">
+                                        <span class="sidebar-mini-icon">P-Z</span>
+                                        <span class="sidebar-normal">
+                                            <span class="sidebar-normal" th:text="#{label.countries}"></span> -
+                                            <span class="sidebar-normal" th:text="#{label.zones}"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/departments}">
+                                        <span class="sidebar-mini-icon">D-C</span>
+                                        <span class="sidebar-normal">
+                                            <span class="sidebar-normal" th:text="#{label.departments}"></span> -
+                                            <span class="sidebar-normal" th:text="#{label.cities}"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/documenttypes}">
+                                        <span class="sidebar-mini-icon">DT</span>
+                                        <span class="sidebar-normal" th:text="#{label.documenttypes}"></span>
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a th:href="@{/roles}">
+                                        <span class="sidebar-mini-icon">R</span>
+                                        <span class="sidebar-normal" th:text="#{label.roles}"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/users}">
+                                        <span class="sidebar-mini-icon">U</span>
+                                        <span class="sidebar-normal" th:text="#{label.users}"></span>
                                     </a>
                                 </li>
                             </ul>

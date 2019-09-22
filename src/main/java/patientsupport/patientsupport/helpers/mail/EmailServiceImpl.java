@@ -39,7 +39,7 @@ public class EmailServiceImpl {
         }
     }
 
-    public void sendSimpleMessage(Mail mail) throws MessagingException, IOException {
+    public void sendSimpleMessage(Mail mail, String templatename) throws MessagingException, IOException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
@@ -49,7 +49,7 @@ public class EmailServiceImpl {
 
         Context context = new Context();
         context.setVariables(mail.getModel());
-        String html = templateEngine.process("mailtemplate", context);
+        String html = templateEngine.process(templatename, context);
 
         helper.setTo(mail.getTo());
         helper.setText(html, true);

@@ -239,7 +239,7 @@ public class CasesController {
         modelEmail.put("caseid", item.getCode());
         modelEmail.put("patientname",patient.getAccountName());
         mail.setModel(modelEmail);
-        emailService.sendSimpleMessage(mail);
+        emailService.sendSimpleMessage(mail, "mailtemplate");
     }
   
 }
