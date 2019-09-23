@@ -10,12 +10,137 @@
   <div class="col" layout:fragment="content">
     <div class="card">
       <div class="card-header">
-        <h1 class="card-title d-inline"> Bienvenidos </h1>
       </div>
       <div class="card-body">
-
+        <div class="row mb-4">
+          <div class="col-md-12">
+              <a th:href="@{'/generics/patientbyzonespdfreport'}" target="_blank" class="btn btn-danger">
+                <i class="fa fa-file-pdf" aria-hidden="true"></i>
+              </a>
+              <canvas id="patientbyzone" style="max-height: 400px;"></canvas>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-12">
+              <a th:href="@{'/generics/patientsbytherapypdfreport'}" target="_blank" class="btn btn-danger">
+                <i class="fa fa-file-pdf" aria-hidden="true"></i>
+              </a>
+            <canvas id="patientsbytherapy" style="max-height: 400px;"></canvas>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+  <div layout:fragment="scripts">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script>
+      var zoneslabels = [];
+      var patientszone = [];
+      var therapieslabels = [];
+      var patientstheraphy = [];
+      $(document).ready(function () {
+        $.get('/generics/patientbyzones').then(data => {
+          for(var i=0; i<data.length; i++) {
+            zoneslabels.push(`${data[i][0]}-${data[i][1]}`)
+            patientszone.push(data[i][2]);
+          }
+          patientbyzone();
+        });
+        $.get('/generics/patientsbytherapy').then(data => {
+          for(var i=0; i<data.length; i++) {
+            therapieslabels.push(`${data[i][0]}`)
+            patientstheraphy.push(data[i][1]);
+          }
+          patientsbytherapy();
+        });
+       
+      });
+  
+      function patientbyzone()
+      {
+        var ctx = document.getElementById('patientbyzone');
+        var patientbyzone = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: zoneslabels,
+                datasets: [{
+                    label: '# of Patients By Zone',
+                    data: patientszone,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+      }
+
+      function patientsbytherapy()
+      {
+        var ctx = document.getElementById('patientsbytherapy');
+        var patientsbytherapy = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: therapieslabels,
+                datasets: [{
+                    label: '# of Patients By Theraphy',
+                    data: patientstheraphy,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+      }
+
+    </script>
   </div>
 </body>
 
