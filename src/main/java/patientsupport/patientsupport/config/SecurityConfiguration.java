@@ -71,8 +71,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers("/departments/**").hasAuthority("ADMIN")
         .antMatchers("/roles/**").hasAuthority("ADMIN")
         .and()
-        .sessionManagement().invalidSessionUrl("/login")
-        .and()
         .csrf().disable()
         .formLogin().loginPage("/login").failureUrl("/login?error")
             .defaultSuccessUrl("/home")
@@ -80,8 +78,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .passwordParameter("password")
         .and()
         .logout()
+        .invalidateHttpSession(true)
+        .clearAuthentication(true)
         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
         .logoutSuccessUrl("/").invalidateHttpSession(true)
+        .and()
+        .sessionManagement().invalidSessionUrl("/login")
         .and()
         //.exceptionHandling().accessDeniedPage("/access-denied.html");
         .exceptionHandling().accessDeniedHandler(accessDeniedHandler());

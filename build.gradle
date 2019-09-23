@@ -29,6 +29,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
 
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs
+	compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '5.1.6.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-config
+	compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.1.6.RELEASE'
+
 	// https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf
 	compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.11.RELEASE'
 	// https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring5
