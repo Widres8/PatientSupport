@@ -116,6 +116,11 @@ public class GenericController {
         }
 	}
 
+    /**
+     * Method Get Country -> Zones
+     * @param countryId
+     * @return
+     */
     @RequestMapping(value = "/getZonesByCountryId", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody List<Zone> getZonesByCountryId(@RequestParam Integer countryId) {
 		try {
@@ -125,7 +130,12 @@ public class GenericController {
 			return null;
 		}
     }
-    
+
+    /**
+     * Method Get Department --> Cities
+     * @param departmentId
+     * @return
+     */
     @RequestMapping(value = "/getCitiesByDepartmentId", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody List<City> getCitiesByDepartmentId(@RequestParam Integer departmentId) {
 		try {
@@ -136,6 +146,11 @@ public class GenericController {
 		}
     }
     
+    /**
+     * Method Get list Status -> Satus Reason
+     * @param statusId
+     * @return
+     */
     @RequestMapping(value = "/getStatusReasonByStatusId", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody List<StatusReason> getStatusReasonByStatusId(@RequestParam Integer statusId) {
 		try {
@@ -146,6 +161,11 @@ public class GenericController {
 		}
     }
     
+    /**
+     * Generate PDF Patients by Zone
+     * @param data
+     * @return
+     */
     public static ByteArrayInputStream generatePdf1(List<Object[]> data) {
 
         Document document = new Document();
@@ -183,18 +203,18 @@ public class GenericController {
             for (String[] item : datapdf) {
 
                 PdfPCell cell1 = new PdfPCell(new Phrase(item[0].toString()));
-                cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell1.setVerticalAlignment(Element.ALIGN_CENTER);
                 cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell1);
 
                 PdfPCell cell2 = new PdfPCell(new Phrase(item[1].toString()));
                 cell2.setPaddingLeft(5);
-                cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell2.setVerticalAlignment(Element.ALIGN_CENTER);
                 cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
                 table.addCell(cell2);
 
                 PdfPCell cell3 = new PdfPCell(new Phrase(String.valueOf(item[2].toString())));
-                cell3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell3.setVerticalAlignment(Element.ALIGN_CENTER);
                 cell3.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 cell3.setPaddingRight(5);
                 table.addCell(cell3);
@@ -215,6 +235,11 @@ public class GenericController {
         
     }
 
+    /**
+     * Generate PDF Patients by Therapy
+     * @param data
+     * @return
+     */
     public static ByteArrayInputStream generatePdf2(List<Object[]> data) {
 
         Document document = new Document();
