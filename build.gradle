@@ -52,6 +52,10 @@ dependencies {
 	compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13.1'
 
 
+	//Apache POI
+	compile('org.apache.poi:poi:+')
+	compile('org.apache.poi:poi-ooxml:+')
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 

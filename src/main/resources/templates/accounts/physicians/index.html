@@ -14,6 +14,11 @@
                 <a class="btn btn-info btn-sm float-right" th:href="@{/physicians/create}">
                     <i class="fa fa-plus"> <span th:text="#{label.new}"></span></i>
                 </a>
+                <div>
+                    <label for="fileUpload" class="btn btn-outline-danger">Carga Masiva</label>
+                    <input type="file" accept=".xls,.xlsx" id="fileUpload" style="visibility:hidden;" />
+                </div>
+                
             </div>
             <div class="card-body">
                 <div class="content">
@@ -64,6 +69,28 @@
     <div layout:fragment="scripts">
         <script>
             $(document).ready(function () {
+                $('#fileUpload').change((item) => {    
+                    //on change event  
+                    var formdata = new FormData();
+                    var filew = item.currentTarget.files;
+
+                    if(filew.length > 0)
+                    {
+                        formdata.append("file", filew[0]);
+
+                        $.ajax({
+                            url: '/upload-physicians',
+                            type: "POST",
+                            data: formdata,
+                            processData: false,
+                            contentType: false,
+                            success: function (result) {
+                                swal("OK", result.status);
+                                location.reload();
+                            }
+                        });
+                    }
+                });
             });
         </script>
     </div>
