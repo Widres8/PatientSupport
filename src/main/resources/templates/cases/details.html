@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <title>Support Patient - Cases</title>
+
+</head>
+
+<body>
+    <div class="col" layout:fragment="content">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title d-inline"> <span th:text="#{label.cases}"></span> </h4>
+            <a type="button" class="btn btn-default btn-wd" th:href="@{/cases}">
+                <span th:text="#{label.cases}"></span>
+            </a>
+          </div>
+          <div class="card-body">
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.code}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.code}"></dt>
+                        </dl>
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.physician}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.physician.firstName}"></dt>
+                        </dl>
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.patient}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.patient.fullName()}"></dt>
+                        </dl>
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.therapyStartDate}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.therapyStartDate}"></dt>
+                        </dl>
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.therapyEndDate}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.therapyEndDate}"></dt>
+                        </dl>
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.enrollmentDate}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.enrollmentDate}"></dt>
+                        </dl>
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.department}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.treatmentDepartment.description}"></dt>
+                        </dl>
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.city}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.treatmentCity.description}"></dt>
+                        </dl>
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.theraphy}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.theraphy.description}"></dt>
+                        </dl>                      
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.status}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.status.description}"></dt>
+                        </dl>  
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.stage}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.stage.description}"></dt>
+                        </dl>
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.statusreason}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.statusReason.description}"></dt>
+                        </dl>
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.institution}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.institution.description}"></dt>
+                        </dl>
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.logisticOperator}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.logisticOperator.description}"></dt>
+                        </dl>
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.healthoperatoraccount}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.healthOperatorAccount.description}"></dt>
+                        </dl>
+                        <dl>
+                            <dd class="d-inline-block" th:text="#{label.insurancetype}">: </dd>
+                            <dt class="d-inline-block float-right" th:text="${case.insuranceType.description}"></dt>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+
+</html>

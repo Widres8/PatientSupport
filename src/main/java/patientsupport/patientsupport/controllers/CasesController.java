@@ -220,6 +220,15 @@ public class CasesController {
         }
     }
 
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
+    public ModelAndView deatils(@PathVariable("id") Integer id,Model model) {
+        ModelAndView view = new ModelAndView();
+        Case details = findById(id);
+        view.addObject("case", details);
+        view.setViewName(pathView + "/details");
+        return view;
+    }
+
     private Case findById(int id) {
         return _repository.findById(id).orElseThrow(() -> 
                     new IllegalArgumentException("Invalid item Id:" + id));
